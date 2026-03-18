@@ -47,11 +47,8 @@
   <!-- HERO -->
   <section id="hero">
     <div class="hero-social">
-      <a href="https://linkedin.com/in/subhash-bharadwaj-c-s" target="_blank" rel="noopener" class="social-link" title="LinkedIn">
+      <a href="https://linkedin.com/in/subhash-bharadwaj-391209281" target="_blank" rel="noopener" class="social-link" title="LinkedIn">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-      </a>
-      <a href="https://github.com/subhashbharadwaj" target="_blank" rel="noopener" class="social-link" title="GitHub">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
       </a>
       <a href="mailto:bharadwajsubhash4@gmail.com" class="social-link" title="Email">
         <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -204,31 +201,26 @@
               </div>
 
               <div class="acc-item open">
-                <button class="acc-btn"><span class="acc-ico">⚙️</span><span>EBC2 Platform — Rust Microservices (5 Engines)</span><span class="acc-arr">›</span></button>
+                <button class="acc-btn"><span class="acc-ico">⚙️</span><span>Security Platform Engineering — Rust Microservices</span><span class="acc-arr">›</span></button>
                 <div class="acc-body">
-                  <div class="engine-grid">
-                    <div class="engine-box"><span class="eport">:50051</span><span class="ename">CORE</span><span class="edesc">Compliance evaluation, COCM propagation, scoring engine</span></div>
-                    <div class="engine-box"><span class="eport">:50052</span><span class="ename">SEAL</span><span class="edesc">Evidence ingestion, Ed25519+PQC sealing, Merkle integrity, MinIO</span></div>
-                    <div class="engine-box"><span class="eport">:50053</span><span class="ename">ARC</span><span class="edesc">Connector registry, capability discovery, health, circuit breakers</span></div>
-                    <div class="engine-box"><span class="eport">:50054</span><span class="ename">ACT</span><span class="edesc">Task queue, remediation, HITL approvals, DAG execution</span></div>
-                    <div class="engine-box"><span class="eport">:8080</span><span class="ename">API GW</span><span class="edesc">REST &amp; GraphQL via Axum, JWT auth, rate limiting, WebSocket</span></div>
-                  </div>
                   <ul>
-                    <li>Built <strong>pluggable connector SDK</strong> for CrowdStrike, Okta, Wazuh, Splunk with OAuth2/API Key/SAML/mTLS auth</li>
-                    <li>Authored the <strong>Ping health-check connector</strong> — reference implementation for the full SDK lifecycle</li>
-                    <li>Implemented serde-based configuration with env-var overrides, custom deserializers, and structured diagnostic logging</li>
+                    <li>Architected a <strong>multi-engine Rust gRPC microservices platform</strong> covering compliance evaluation, evidence management, cryptographic sealing, connector lifecycle, and remediation workflows</li>
+                    <li>Built a <strong>pluggable connector framework (SDK)</strong> for integrating external security tools (SIEM, EDR, IAM, vulnerability scanners) with standardized auth support — OAuth2, API Key, SAML, mTLS</li>
+                    <li>Implemented <strong>REST &amp; GraphQL API gateway</strong> via Axum with JWT authentication, rate limiting, and WebSocket support</li>
+                    <li>Built cryptographic evidence sealing with <strong>Ed25519 and Post-Quantum hybrid signatures</strong>, Merkle tree integrity, and immutable object storage</li>
+                    <li>Implemented serde-based configuration management with env-var overrides, custom deserializers, and structured diagnostic logging</li>
                   </ul>
                 </div>
               </div>
 
               <div class="acc-item">
-                <button class="acc-btn"><span class="acc-ico">🕸️</span><span>Compliance Graph DB &amp; COCM (NebulaGraph)</span><span class="acc-arr">›</span></button>
+                <button class="acc-btn"><span class="acc-ico">🕸️</span><span>Compliance Graph Database &amp; Scoring</span><span class="acc-arr">›</span></button>
                 <div class="acc-body">
                   <ul>
-                    <li>Architected compliance graph in <strong>NebulaGraph</strong> — controls, frameworks, requirements, evidence linked via typed edges</li>
-                    <li>Enabled <strong>Comply Once Comply Many (COCM)</strong> — evidence collected once satisfies overlapping requirements across all frameworks</li>
-                    <li>Built compliance scoring with weighted aggregation, confidence weighting, and temporal trend analysis</li>
-                    <li>Worked with <strong>CRXL</strong> (Compliance &amp; Risk eXecution Language) — DSL with own compiler, bytecode, type system, and GSL compiling to nGQL</li>
+                    <li>Architected a <strong>compliance graph database</strong> (NebulaGraph) mapping enterprise IT environments — controls, frameworks, requirements, and evidence via typed relationships</li>
+                    <li>Enabled "collect once, satisfy many" evidence propagation — a single evidence item automatically satisfies overlapping requirements across multiple compliance frameworks</li>
+                    <li>Built interactive compliance scoring with weighted aggregation, confidence weighting, category breakdowns, and temporal trend analysis</li>
+                    <li>Worked on a <strong>domain-specific language (DSL)</strong> for compliance rule authoring — with its own compiler, bytecode format, type system, and graph semantic layer</li>
                   </ul>
                 </div>
               </div>
@@ -274,11 +266,6 @@
         <div class="proj-card featured">
           <div class="proj-top">
             <span class="proj-badge">Featured · 2025</span>
-            <div class="proj-links">
-              <a href="#" class="proj-ico-link" title="View on GitHub">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg>
-              </a>
-            </div>
           </div>
           <h3 class="proj-title">EBC2 Security Platform</h3>
           <p class="proj-sub">Evidence-Based Continuous Compliance</p>
@@ -301,9 +288,6 @@
         <div class="proj-card">
           <div class="proj-top">
             <span class="proj-badge">Dec 2024</span>
-            <div class="proj-links">
-              <a href="#" class="proj-ico-link" title="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 00-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0020 4.77 5.07 5.07 0 0019.91 1S18.73.65 16 2.48a13.38 13.38 0 00-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 005 4.77a5.44 5.44 0 00-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 009 18.13V22"/></svg></a>
-            </div>
           </div>
           <h3 class="proj-title">Adversarial Simulation Lab</h3>
           <p class="proj-desc">SOC simulation environment using Wazuh, Splunk, and Kali Linux. Simulated brute force, SQLi, and privilege escalation via Atomic Red Team. Wrote custom SPL queries and Wazuh XML rules to detect attacks with measured true/false positive rates.</p>
@@ -407,8 +391,7 @@
       <span class="footer-logo">&lt;SB/&gt;</span>
       <p>Designed &amp; built by <strong>Subhash Bharadwaj C S</strong> — with Rust-level precision.</p>
       <div class="footer-links">
-        <a href="https://linkedin.com/in/subhash-bharadwaj-c-s" target="_blank">LinkedIn</a>
-        <a href="https://github.com/subhashbharadwaj" target="_blank">GitHub</a>
+        <a href="https://linkedin.com/in/subhash-bharadwaj-391209281" target="_blank">LinkedIn</a>
         <a href="mailto:bharadwajsubhash4@gmail.com">Email</a>
       </div>
     </div>
