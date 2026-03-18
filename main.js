@@ -1,55 +1,20 @@
 /* =============================================================
-   SUBHASH BHARADWAJ — PORTFOLIO MAIN.JS
+   SUBHASH BHARADWAJ — SB//CORE (Z-Axis Warp Engine)
    ============================================================= */
 
 // --- WAIT FOR DOM ---
 document.addEventListener('DOMContentLoaded', () => {
-  initPreloader();
-  initScrollProgress();
   initCursor();
-  initNav();
-  initParticles();
-  initTyped();
-  initGSAP();
-  initAccordions();
-  initCounters();
-  initBackTop();
+  initBootSequence();
 });
 
 /* ─────────────────────────────────────────────
-   1. PRELOADER
-   ───────────────────────────────────────────── */
-function initPreloader() {
-  const loader = document.getElementById('preloader');
-  if(!loader) return;
-  document.body.style.overflow = 'hidden';
-  setTimeout(() => {
-    loader.classList.add('out');
-    document.body.style.overflow = '';
-  }, 2200);
-}
-
-/* ─────────────────────────────────────────────
-   2. SCROLL PROGRESS
-   ───────────────────────────────────────────── */
-function initScrollProgress() {
-  const bar = document.getElementById('scroll-bar');
-  if(!bar) return;
-  window.addEventListener('scroll', () => {
-    const s = window.scrollY;
-    const h = document.documentElement.scrollHeight - window.innerHeight;
-    bar.style.width = h > 0 ? (s/h * 100) + '%' : '0%';
-  }, {passive:true});
-}
-
-/* ─────────────────────────────────────────────
-   3. CUSTOM CURSOR
+   1. HUD CURSOR TARGETING
    ───────────────────────────────────────────── */
 function initCursor() {
-  const dot = document.getElementById('cursor');
-  const ring = document.getElementById('cursor-ring');
-  const orb = document.querySelector('.orb-system');
-  if(!dot || !ring) return;
+  const dot = document.getElementById('cursor-dot');
+  const target = document.getElementById('cursor-target');
+  if(!dot || !target) return;
   
   let tx = 0, ty = 0, cx = 0, cy = 0;
   
@@ -60,127 +25,182 @@ function initCursor() {
   });
   
   function loop() {
-    cx += (tx - cx) * 0.15;
-    cy += (ty - cy) * 0.15;
-    ring.style.left = cx + 'px';
-    ring.style.top = cy + 'px';
-
-    // Orb Parallax
-    if(orb) {
-      const px = (tx - window.innerWidth/2) * 0.04;
-      const py = (ty - window.innerHeight/2) * 0.04;
-      orb.style.transform = `translate(${px}px, ${py}px)`;
-    }
-
+    cx += (tx - cx) * 0.2;
+    cy += (ty - cy) * 0.2;
+    target.style.left = cx + 'px';
+    target.style.top = cy + 'px';
     requestAnimationFrame(loop);
   }
   loop();
 
-  const interactives = 'a, button, .acc-btn, .spec-card, .sk-cat, .proj-card, .cert-card, input, textarea, .citem, .nav-brand';
+  const interactives = 'a, button, .htag, .s-pill, .nd, .ab-pane, .c-btn';
   document.querySelectorAll(interactives).forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hov'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hov'));
-  });
-
-  // Click burst effect
-  document.addEventListener('click', e => {
-    const b = document.createElement('div');
-    b.className = 'click-burst';
-    b.style.left = e.clientX + 'px';
-    b.style.top = e.clientY + 'px';
-    document.body.appendChild(b);
-    setTimeout(() => b.remove(), 600);
+    el.addEventListener('mouseenter', () => document.body.classList.add('hov-target'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('hov-target'));
   });
 }
 
 /* ─────────────────────────────────────────────
-   4. NAVBAR & MOBILE MENU
+   2. HACKER BOOT SEQUENCE
    ───────────────────────────────────────────── */
-function initNav() {
-  const nav = document.getElementById('nav');
-  const links = document.querySelectorAll('.nl');
-  const secs = document.querySelectorAll('section[id]');
+function initBootSequence() {
+  const term = document.getElementById('boot-terminal');
+  const inputLine = document.getElementById('bt-input');
+  if(!term || !inputLine) {
+    startEngine(); return;
+  }
   
-  window.addEventListener('scroll', () => {
-    if(window.scrollY > 40) nav.classList.add('stuck');
-    else nav.classList.remove('stuck');
+  // Prevent scrolling until boot complete
+  window.scrollTo(0, 0);
+  document.body.style.overflow = 'hidden';
 
-    let curr = '';
-    secs.forEach(s => { if(window.scrollY >= s.offsetTop - 150) curr = s.id; });
-    links.forEach(l => {
-      l.classList.toggle('on', l.getAttribute('href') === '#' + curr);
-    });
-  }, {passive:true});
-
-  const btn = document.getElementById('ham');
-  const menu = document.getElementById('mob-menu');
-  if(!btn || !menu) return;
-
-  btn.addEventListener('click', () => {
-    menu.classList.toggle('open');
-    const sp = btn.querySelectorAll('span');
-    if(menu.classList.contains('open')) {
-      sp[0].style.transform = 'translateY(7px) rotate(45deg)';
-      sp[1].style.opacity = '0';
-      sp[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+  const targetCmd = "run portfolio_init --force";
+  let cmdIndex = 0;
+  let isBooting = false;
+  
+  function typeChar() {
+    if(isBooting) return;
+    if(cmdIndex < targetCmd.length) {
+      inputLine.textContent += targetCmd.charAt(cmdIndex);
+      cmdIndex++;
     } else {
-      sp.forEach(s => { s.style.transform=''; s.style.opacity=''; });
+      isBooting = true;
+      executeBoot();
     }
-  });
-  document.querySelectorAll('.mm-link').forEach(l => {
-    l.addEventListener('click', () => {
-      menu.classList.remove('open');
-      btn.querySelectorAll('span').forEach(s => { s.style.transform=''; s.style.opacity=''; });
-    });
-  });
+  }
+
+  // Whatever they type, type our command
+  const keyHandler = (e) => {
+    // Prevent default actions to stop scrolling or weirdness
+    if(e.key !== 'F5' && e.key !== 'F12' && !e.ctrlKey) e.preventDefault();
+    typeChar();
+    // Simulate fast typing if they smash keys
+    if(cmdIndex < targetCmd.length && Math.random() > 0.5) setTimeout(typeChar, 30);
+  };
+  
+  document.addEventListener('keydown', keyHandler);
+  
+  // Auto-complete if they are slow (timeout 4s)
+  const autoType = setInterval(() => {
+    if(!isBooting && cmdIndex === 0) {
+      const slowBoot = setInterval(() => {
+        if(!isBooting) typeChar();
+        else clearInterval(slowBoot);
+      }, 80);
+      clearInterval(autoType);
+    }
+  }, 4000);
+
+  function executeBoot() {
+    document.removeEventListener('keydown', keyHandler);
+    
+    const termBody = document.getElementById('bt-output');
+    const p1 = document.createElement('p');
+    p1.textContent = '> OVERRIDE ACCEPTED. BYPASSING SECURITY PROTOCOLS...';
+    p1.style.color = '#ff3366';
+    termBody.appendChild(p1);
+    
+    setTimeout(() => {
+      const p2 = document.createElement('p');
+      p2.textContent = '> DECRYPTING DATA CORE... 100%';
+      p2.style.color = '#27c93f';
+      termBody.appendChild(p2);
+    }, 400);
+
+    setTimeout(() => {
+      term.classList.add('unlocked');
+      document.body.style.overflow = ''; // allow scroll proxy to work
+      startEngine();
+    }, 1200);
+  }
 }
 
 /* ─────────────────────────────────────────────
-   5. BACKGROUND PARTICLES (Starfield effect)
+   3. THE WARP CORE (Engine Start)
    ───────────────────────────────────────────── */
-function initParticles() {
-  const cvs = document.getElementById('bg-canvas');
+function startEngine() {
+  initWarpCanvas();
+  initZAxisScroll();
+  initGlitchPhysics();
+}
+
+/* ─────────────────────────────────────────────
+   4. WARP BACKGROUND SIMULATOR
+   ───────────────────────────────────────────── */
+function initWarpCanvas() {
+  const cvs = document.getElementById('warp-bg');
   if(!cvs) return;
   const ctx = cvs.getContext('2d');
   let W, H;
-  const pts = [];
-  const C = 100;
   
   function resize() { W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
   window.addEventListener('resize', resize);
   resize();
 
-  for(let i=0; i<C; i++) {
-    pts.push({
-      x: Math.random()*W, y: Math.random()*H,
-      vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3,
-      r: Math.random()*1.5+0.5,
-      a: Math.random()*0.5+0.1
+  const stars = [];
+  const count = 300;
+  for(let i=0; i<count; i++) {
+    stars.push({
+      x: (Math.random() - 0.5) * 2000,
+      y: (Math.random() - 0.5) * 2000,
+      z: Math.random() * 2000,
+      prevZ: Math.random() * 2000
     });
   }
 
-  let mx = -999, my = -999;
-  window.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
+  let scrollVel = 0;
+  let lastScroll = window.scrollY;
+  // Track scroll speed to stretch lines into warp drive effect
+  window.addEventListener('scroll', () => {
+    scrollVel += Math.abs(window.scrollY - lastScroll) * 0.05;
+    lastScroll = window.scrollY;
+  }, {passive:true});
 
   function draw() {
-    ctx.clearRect(0,0,W,H);
-    for(let i=0; i<C; i++) {
-      let p = pts[i];
-      p.x += p.vx; p.y += p.vy;
-      if(p.x<0||p.x>W) p.vx*=-1;
-      if(p.y<0||p.y>H) p.vy*=-1;
+    ctx.fillStyle = 'rgba(1,3,8,0.8)'; // slight trail effect
+    ctx.fillRect(0,0,W,H);
+    
+    // Friction
+    scrollVel = Math.max(1, scrollVel * 0.92); // baseline speed is 1
+
+    const cx = W/2, cy = H/2;
+    for(let i=0; i<count; i++) {
+      let s = stars[i];
+      s.z -= scrollVel * 1.5;
       
-      const dx = p.x - mx; const dy = p.y - my;
-      const d = Math.sqrt(dx*dx+dy*dy);
-      if(d < 120) {
-        p.x += dx*(120-d)*0.0005;
-        p.y += dy*(120-d)*0.0005;
+      if(s.z <= 0) {
+        s.z = 2000;
+        s.prevZ = 2000;
+        s.x = (Math.random() - 0.5) * 2000;
+        s.y = (Math.random() - 0.5) * 2000;
       }
+
+      // 3D to 2D project
+      const fov = 350;
+      const scale = fov / Math.max(s.z, 0.1);
+      const px = s.x * scale + cx;
+      const py = s.y * scale + cy;
+      
+      const pScale = fov / Math.max(s.prevZ, 0.1);
+      const ppx = s.x * pScale + cx;
+      const ppy = s.y * pScale + cy;
       
       ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
-      ctx.fillStyle = `rgba(6,214,160,${p.a})`;
-      ctx.fill();
+      ctx.moveTo(ppx, ppy);
+      ctx.lineTo(px, py);
+      
+      // Color and stretch based on velocity and proximity
+      const cval = Math.floor(255 - (s.z/2000)*200);
+      const r = Math.min(0 + scrollVel*10, 0); // cyan hue
+      const g = 255;
+      const b = 204;
+      
+      ctx.lineWidth = Math.min(scrollVel * 0.2, 5);
+      if(ctx.lineWidth < 0.5) ctx.lineWidth = 0.5;
+      ctx.strokeStyle = `rgba(${r},${g},${b},${Math.max(0.1, 1 - (s.z/2000))})`;
+      ctx.stroke();
+      
+      s.prevZ = s.z;
     }
     requestAnimationFrame(draw);
   }
@@ -188,155 +208,124 @@ function initParticles() {
 }
 
 /* ─────────────────────────────────────────────
-   6. TYPED.JS
+   5. GSAP Z-AXIS TIMELINE & HUD SYNCHRONIZATION
    ───────────────────────────────────────────── */
-function initTyped() {
-  if(typeof Typed === 'undefined') return;
-  new Typed('#typed', {
-    strings: [
-      'Rust Microservices.',
-      'Detection Engineering.',
-      'AI MCP Servers.',
-      'Kubernetes Infra.',
-      'Enterprise SIEM/SOAR.'
-    ],
-    typeSpeed: 50,
-    backSpeed: 30,
-    backDelay: 1500,
-    loop: true
-  });
-}
-
-/* ─────────────────────────────────────────────
-   7. GSAP SCROLL ANIMATIONS
-   ───────────────────────────────────────────── */
-function initGSAP() {
+function initZAxisScroll() {
   if(typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
-  const ease = 'power3.out';
 
-  // Hero Reveal (delayed for preloader)
-  const d = 2.2;
-  gsap.from('.hero-status', {y:20, opacity:0, duration:1, ease, delay:d});
-  gsap.from('.hero-name', {y:30, opacity:0, duration:1, ease, delay:d+0.2});
-  gsap.from('.hero-title-row', {y:20, opacity:0, duration:1, ease, delay:d+0.4});
-  gsap.from('.hero-typed-row', {y:20, opacity:0, duration:1, ease, delay:d+0.5});
-  gsap.from('.hero-desc', {y:20, opacity:0, duration:1, ease, delay:d+0.6});
-  gsap.from('.hero-actions', {y:20, opacity:0, duration:1, ease, delay:d+0.7});
-  gsap.from('.hero-social-rail', {opacity:0, duration:1, ease, delay:d+0.9});
-  gsap.from('.orb-system', {scale:0.8, opacity:0, duration:1.5, ease, delay:d+0.3});
-
-  // Generic sections
-  document.querySelectorAll('.sec-head').forEach(el => {
-    gsap.from(el, { scrollTrigger:{trigger:el, start:'top 85%'}, y:30, opacity:0, duration:0.8, ease });
+  const panels = gsap.utils.toArray('.panel');
+  const camera = document.getElementById('camera');
+  const zStep = 3500; // Distance between panels
+  
+  // Arrange panels absolutely in 3D space
+  panels.forEach((p, i) => {
+    // Add custom rotation for chaotic layout, snapping flat as camera approaches
+    const rx = (Math.random()-0.5) * 30;
+    const ry = (Math.random()-0.5) * 30;
+    
+    // We store base data via GSAP
+    gsap.set(p, { 
+      z: -i * zStep,
+      rotationX: rx,
+      rotationY: ry,
+      opacity: i === 0 ? 1 : 0 
+    });
+    // Store original random rotation for math parsing
+    p.origRX = rx; p.origRY = ry;
   });
 
-  // Specialize cards
-  gsap.from('.spec-card', {
-    scrollTrigger:{trigger:'.spec-grid', start:'top 85%'},
-    y:40, opacity:0, duration:0.8, stagger:0.15, ease
-  });
+  // Calculate total depth
+  const maxZ = (panels.length - 1) * zStep;
+  
+  // HUD Elements
+  const hudCoords = document.getElementById('hud-coords');
+  const navDots = gsap.utils.toArray('.nd');
 
-  // About 
-  gsap.from('.term-card', {scrollTrigger:'.term-card', x:40, opacity:0, duration:1, Math});
+  // GSAP ScrollTrigger to move the camera forward
+  const st = ScrollTrigger.create({
+    trigger: '#scroll-proxy',
+    start: 'top top',
+    end: 'bottom bottom',
+    scrub: 1.2,
+    onUpdate: (self) => {
+      const currentCamZ = self.progress * maxZ;
+      gsap.set(camera, { z: currentCamZ });
+      
+      // Update HUD
+      hudCoords.textContent = `Z: -${Math.floor(currentCamZ).toString().padStart(5, '0')} | V: ${(self.getVelocity() / 100).toFixed(2)}`;
 
-  // Skills
-  gsap.from('.sk-cat', {
-    scrollTrigger:{trigger:'.skills-grid', start:'top 85%'},
-    y:40, opacity:0, duration:0.7, stagger:0.1, ease
-  });
+      // Calculate proximity per panel
+      let activeIndex = 0;
+      panels.forEach((p, i) => {
+        const pZ = i * zStep;
+        const dist = Math.abs(currentCamZ - pZ);
+        
+        // Active dot logic (nearest panel)
+        if(dist < (zStep / 2)) activeIndex = i;
 
-  // Experience
-  gsap.from('.exp-card', {scrollTrigger:'.exp-card', y:40, opacity:0, duration:0.9, ease});
-
-  // Projects
-  gsap.from('.proj-card', {
-    scrollTrigger:{trigger:'.proj-grid', start:'top 85%'},
-    y:50, opacity:0, duration:0.8, stagger:0.2, ease
-  });
-
-  // Certs
-  gsap.from('.cert-card', {
-    scrollTrigger:{trigger:'.certs-row', start:'top 90%'},
-    y:20, opacity:0, duration:0.6, stagger:0.1, ease
-  });
-
-  // Contact
-  gsap.from('.contact-items .citem', {
-    scrollTrigger:{trigger:'.contact-wrap', start:'top 85%'},
-    x:-30, opacity:0, duration:0.6, stagger:0.1, ease
-  });
-  gsap.from('.contact-form', {scrollTrigger:'.contact-form', x:40, opacity:0, duration:0.9, ease});
-}
-
-/* ─────────────────────────────────────────────
-   8. ACCORDION
-   ───────────────────────────────────────────── */
-function initAccordions() {
-  // EBC2 is open by default via HTML class .open
-  // Let's set its height
-  const openItem = document.querySelector('.acc-item.open');
-  if(openItem) {
-    const b = openItem.querySelector('.acc-body');
-    b.style.maxHeight = b.scrollHeight + 'px';
-  }
-
-  document.querySelectorAll('.acc-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const item = btn.closest('.acc-item');
-      const body = item.querySelector('.acc-body');
-      const isOpen = item.classList.contains('open');
-
-      document.querySelectorAll('.acc-item.open').forEach(o => {
-        if(o !== item) {
-          o.classList.remove('open');
-          o.querySelector('.acc-body').style.maxHeight = '0';
-        }
+        // Visual Math: 
+        // Opacity peaks when dist < 500, fades out until dist > 2000
+        let op = 1 - (dist / 1800);
+        if(op < 0) op = 0; if(op > 1) op = 1;
+        
+        // Snap rotations flat as it approaches
+        let progressToCenter = 1 - (dist / zStep); // 1 when exact, 0 when far
+        if(progressToCenter < 0) progressToCenter = 0;
+        
+        // Apply physics
+        gsap.set(p, {
+          opacity: op,
+          rotationX: p.origRX * (1 - progressToCenter),
+          rotationY: p.origRY * (1 - progressToCenter),
+        });
+        
+        // Enable pointer events only if strictly readable
+        if(dist < 500) p.classList.add('active');
+        else p.classList.remove('active');
       });
-      if(!isOpen) {
-        item.classList.add('open');
-        body.style.maxHeight = body.scrollHeight + 'px';
-      } else {
-        item.classList.remove('open');
-        body.style.maxHeight = '0';
-      }
+      
+      // Update nav dots
+      navDots.forEach((dot, idx) => {
+        if(idx === activeIndex) dot.classList.add('active');
+        else dot.classList.remove('active');
+      });
+    }
+  });
+
+  // Init dots click to jump to section
+  navDots.forEach((dot, i) => {
+    dot.addEventListener('click', () => {
+      // Calculate target scroll percentage
+      const pct = (i * zStep) / maxZ;
+      const targetScroll = pct * (document.body.scrollHeight - window.innerHeight);
+      window.scrollTo({top: targetScroll, behavior: 'smooth'});
     });
   });
 }
 
 /* ─────────────────────────────────────────────
-   9. STAT COUNTERS
+   6. MICRO-INTERACTIONS & PHYSICS
    ───────────────────────────────────────────── */
-function initCounters() {
-  const q = document.querySelectorAll('.astat-n[data-target]');
-  if(!q.length) return;
-  const obs = new IntersectionObserver(en => {
-    en.forEach(e => {
-      if(e.isIntersecting) {
-        const el = e.target;
-        const tar = +el.dataset.target;
-        let c = 0; const s = Math.ceil(tar/40);
-        const t = setInterval(() => {
-          c = Math.min(c+s, tar);
-          el.textContent = c + (el.dataset.sfx||'+');
-          if(c>=tar) clearInterval(t);
-        }, 40);
-        obs.unobserve(el);
-      }
+function initGlitchPhysics() {
+  const tiltCards = document.querySelectorAll('.ab-pane, .s-pill, .c-btn');
+  
+  tiltCards.forEach(c => {
+    c.addEventListener('mousemove', e => {
+      const rect = c.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      const w = rect.width;
+      const h = rect.height;
+      
+      const rx = (y / h - 0.5) * -15; // 15deg tilt
+      const ry = (x / w - 0.5) * 15;
+      
+      gsap.to(c, { rotationX: rx, rotationY: ry, duration: 0.4, ease: "power2.out" });
     });
-  }, {threshold:0.5});
-  q.forEach(el => obs.observe(el));
-}
-
-/* ─────────────────────────────────────────────
-   10. BACK TO TOP
-   ───────────────────────────────────────────── */
-function initBackTop() {
-  const b = document.getElementById('back-top');
-  if(!b) return;
-  window.addEventListener('scroll', () => {
-    if(window.scrollY > 500) b.classList.add('on');
-    else b.classList.remove('on');
-  }, {passive:true});
-  b.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
+    
+    c.addEventListener('mouseleave', () => {
+      gsap.to(c, { rotationX: 0, rotationY: 0, duration: 0.6, ease: "elastic.out(1, 0.4)" });
+    });
+  });
 }

@@ -3,447 +3,195 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Subhash Bharadwaj C S — Associate Engineer at Parivartan Technologies. Detection Engineering, Rust Microservices, Kubernetes, AI-driven security automation." />
-  <title>Subhash Bharadwaj | Associate Engineer</title>
+  <meta name="description" content="Subhash Bharadwaj C S — Systems & Security Engineer." />
+  <title>SB // SYSTEM CORE</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- PRELOADER -->
-  <div id="preloader">
-    <div class="pre-box">
-      <div class="pre-logo">&lt;SB/&gt;</div>
-      <div class="pre-track"><div class="pre-fill"></div></div>
-      <div class="pre-msg">Initializing<span class="pre-dots">...</span></div>
+  <!-- CUSTOM CURSOR -->
+  <div id="cursor-dot"></div>
+  <div id="cursor-target">
+    <div class="ct-t ct-tl"></div><div class="ct-t ct-tr"></div>
+    <div class="ct-t ct-bl"></div><div class="ct-t ct-br"></div>
+  </div>
+
+  <!-- THE BOOT TERMINAL (Playful Hacker Intro) -->
+  <div id="boot-terminal">
+    <div class="bt-window">
+      <div class="bt-header">
+        <span class="bt-red"></span><span class="bt-yel"></span><span class="bt-grn"></span>
+        <span class="bt-title">sb_core_init.sh</span>
+      </div>
+      <div class="bt-body" id="bt-output">
+        <p>> INITIALIZING SECURE ENVIRONMENT...</p>
+        <p>> ESTABLISHING MAINFRAME UPLINK... OK</p>
+        <p class="blink-line">> ENTER OVERRIDE COMMAND (Type anything): <span id="bt-input"></span><span class="bt-cursor">█</span></p>
+      </div>
     </div>
   </div>
 
-  <!-- UI OVERLAYS -->
-  <div id="scroll-bar"></div>
-  <div id="cursor"></div>
-  <div id="cursor-ring"></div>
-  <canvas id="bg-canvas"></canvas>
+  <!-- PERSISTENT BACKGROUND -->
+  <canvas id="warp-bg"></canvas>
 
-  <!-- NAV -->
-  <nav id="nav">
-    <a href="#hero" class="nav-brand">&lt;SB/&gt;</a>
-    <div class="nav-center">
-      <a href="#about" class="nl">About</a>
-      <a href="#skills" class="nl">Skills</a>
-      <a href="#experience" class="nl">Experience</a>
-      <a href="#projects" class="nl">Projects</a>
-      <a href="#contact" class="nl">Contact</a>
+  <!-- GSAP SCROLL PROXY (Forces height) -->
+  <div id="scroll-proxy"></div>
+
+  <!-- FIXED 3D UNIVERSE -->
+  <div id="universe">
+    <div id="camera">
+      
+      <!-- 1. HERO MONOLITH -->
+      <section class="panel p-hero">
+        <div class="panel-content gl-hero">
+          <div class="hud-top">
+            <span class="hud-lbl">SEC_L1</span>
+            <span class="hud-lbl">SYS: ONLINE</span>
+          </div>
+          <h1 class="hero-name" data-glitch="SUBHASH BHARADWAJ">SUBHASH BHARADWAJ</h1>
+          <h2 class="hero-role">ASSOCIATE ENGINEER <span>// Parivartan Tech</span></h2>
+          <div class="hero-tags">
+            <span class="htag">RUST</span>
+            <span class="htag">K8s</span>
+            <span class="htag">WAZUH</span>
+            <span class="htag">AI/MCP</span>
+          </div>
+          <p class="hero-desc">Building enterprise grade SIEM/SOAR platforms, cryptographic sealing layers, and autonomous AI-augmented security agents.</p>
+          <div class="hud-bot">
+            <span class="hud-scroll">SCROLL TO ADVANCE Z-AXIS [▼]</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. DETECTION & PLATFORM -->
+      <section class="panel p-about">
+        <div class="panel-content spl-about">
+          <div class="ab-grid">
+            <div class="ab-pane">
+              <span class="pane-id">MODULE 01</span>
+              <h3>Detection Engineering</h3>
+              <p>Authoring strict Wazuh XML rulesets mapped directly to MITRE ATT&amp;CK. Developing Kafka-backed ingestion pipelines and custom Regex decoders for non-standard telemetry, creating a resilient open-source equivalent to Sentinel.</p>
+            </div>
+            <div class="ab-pane">
+              <span class="pane-id">MODULE 02</span>
+              <h3>Platform Engineering</h3>
+              <p>Architecting multi-engine Rust gRPC microservices deployed on RKE2. Implementing bitemporal evidence storage, Post-Quantum cryptographic sealing, and interactive NebulaGraph compliance modeling.</p>
+            </div>
+            <div class="ab-pane accent-pane">
+              <span class="pane-id">MODULE 03</span>
+              <h3>Agentic AI</h3>
+              <p>Deploying MCP (Model Context Protocol) servers that allow LLMs to directly execute threat hunting and compliance workflows securely. Bridging the gap between declarative agents and raw infrastructure.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. ORBITAL SKILLS -->
+      <section class="panel p-skills">
+        <div class="panel-content gl-skills">
+          <span class="hud-lbl center-hud">TECH_MATRIX_ENGAGED</span>
+          <div class="skill-cloud">
+            <div class="s-col">
+              <h4>Languages</h4>
+              <div class="s-wrap"><span class="s-pill hot">Rust Core ★</span><span class="s-pill">Python</span><span class="s-pill">Bash</span><span class="s-pill">SQL/nGQL</span></div>
+            </div>
+            <div class="s-col">
+              <h4>Detection</h4>
+              <div class="s-wrap"><span class="s-pill hot">Wazuh ★</span><span class="s-pill">Splunk</span><span class="s-pill">Suricata</span><span class="s-pill">Zeek</span></div>
+            </div>
+            <div class="s-col">
+              <h4>Infra & Data</h4>
+              <div class="s-wrap"><span class="s-pill">K8s / RKE2</span><span class="s-pill">Kafka</span><span class="s-pill">NebulaGraph</span><span class="s-pill">PostgreSQL</span></div>
+            </div>
+            <div class="s-col">
+              <h4>Crypto & AI</h4>
+              <div class="s-wrap"><span class="s-pill">Ed25519</span><span class="s-pill">PQC/Dilithium</span><span class="s-pill hot">MCP Servers ★</span><span class="s-pill">Claude Code</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. SIGNATURE PROJECT -->
+      <section class="panel p-project">
+        <div class="panel-content gl-project">
+          <div class="proj-split">
+            <div class="ps-left">
+              <span class="hud-lbl">FLAGSHIP_ARCHITECTURE</span>
+              <h2 class="proj-title">EBC2 Platform</h2>
+              <p class="proj-desc">An enterprise-grade compliance and evidence sealing engine. "Collect once, satisfy many" dynamic requirement mapping using NebulaGraph.</p>
+              <ul class="proj-feats">
+                <li><span>▸</span> Pluggable Rust connector SDK (OAuth2, mTLS)</li>
+                <li><span>▸</span> Custom DSL for compliance rule authoring</li>
+                <li><span>▸</span> Ed25519 + Post-Quantum hybrid evidence signatures</li>
+                <li><span>▸</span> Full K8s deployment via custom manifests</li>
+              </ul>
+              <div class="proj-links">
+                <span class="hud-lbl">INTERNAL DEPLOYMENT ONLY</span>
+              </div>
+            </div>
+            <div class="ps-right">
+              <!-- Holographic Architecture Graphic -->
+              <div class="holo-arch">
+                <div class="ha-center">API Gateway</div>
+                <div class="ha-node ha-n1">Compliance<br>Graph</div>
+                <div class="ha-node ha-n2">Evidence<br>Sealing</div>
+                <div class="ha-node ha-n3">Connector<br>SDK</div>
+                <div class="ha-node ha-n4">Remediation<br>Engine</div>
+                <div class="ha-lines"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. TERMINAL CONTACT ENDPOINT -->
+      <section class="panel p-contact">
+        <div class="panel-content gl-contact">
+          <h2 class="c-title">TRANSMISSION ENDPOINT</h2>
+          <div class="c-grid">
+            <div class="c-info">
+              <p>Looking to build resilient security infrastructure or bridge AI with core engineering? Initialize a connection.</p>
+              <div class="c-links">
+                <a href="mailto:bharadwajsubhash4@gmail.com" class="c-btn"><span class="c-ic">✉</span> bharadwajsubhash4@gmail.com</a>
+                <a href="https://linkedin.com/in/subhash-bharadwaj-391209281" target="_blank" class="c-btn"><span class="c-ic">in</span> LinkedIn Profile</a>
+                <a href="latest resume.pdf" download class="c-btn accent-cbtn"><span class="c-ic">↓</span> Download Resume Payload</a>
+              </div>
+            </div>
+            <div class="c-sys">
+              <div class="sys-msg">> SECURE CHANNEL OPEN.</div>
+              <div class="sys-msg">> WAITING FOR HANDSHAKE...</div>
+              <div class="sys-blink">█</div>
+            </div>
+          </div>
+          <div class="hud-bot spread">
+            <span>B.E. CSE 2026 // BENGALURU</span>
+            <span>SYSTEM.EXIT(0)</span>
+          </div>
+        </div>
+      </section>
+
     </div>
-    <a href="latest resume.pdf" class="nav-resume" download>
-      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Resume
-    </a>
-    <button id="ham" class="ham" aria-label="Menu"><span></span><span></span><span></span></button>
-  </nav>
-
-  <!-- MOBILE MENU -->
-  <div id="mob-menu">
-    <a href="#about" class="mm-link">About</a>
-    <a href="#skills" class="mm-link">Skills</a>
-    <a href="#experience" class="mm-link">Experience</a>
-    <a href="#projects" class="mm-link">Projects</a>
-    <a href="#contact" class="mm-link">Contact</a>
   </div>
 
-  <!-- ═══════ HERO ═══════ -->
-  <section id="hero">
-    <div class="hero-grid">
-
-      <div class="hero-left">
-        <div class="hero-status">
-          <span class="status-dot"></span>
-          <span>Available for opportunities</span>
-        </div>
-        <h1 class="hero-name" id="hero-name" data-text="Subhash Bharadwaj">Subhash Bharadwaj</h1>
-        <div class="hero-title-row">
-          <span class="hero-role-chip">Associate Engineer</span>
-          <span class="hero-at">@ Parivartan Technologies</span>
-        </div>
-        <div class="hero-typed-row">
-          <span class="hero-typed-prefix">Building&nbsp;</span>
-          <span id="typed"></span>
-        </div>
-        <p class="hero-desc">Detection engineering, Rust gRPC microservices, Kubernetes, NebulaGraph, and AI-augmented automation — I operate across the full security stack.</p>
-        <div class="hero-actions">
-          <a href="#projects" class="btn-accent">
-            Explore Projects
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
-          </a>
-          <a href="latest resume.pdf" class="btn-ghost" download>Download CV</a>
-        </div>
-        <div class="hero-social-rail">
-          <a href="https://linkedin.com/in/subhash-bharadwaj-391209281" target="_blank" rel="noopener" class="soc-link" title="LinkedIn">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
-          </a>
-          <a href="mailto:bharadwajsubhash4@gmail.com" class="soc-link" title="Email">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
-          </a>
-          <div class="soc-line"></div>
-        </div>
-      </div>
-
-      <div class="hero-right">
-        <div class="orb-system" id="orb">
-          <div class="orb-glow"></div>
-          <div class="orb-ring r1"></div>
-          <div class="orb-ring r2"></div>
-          <div class="orb-ring r3"></div>
-          <div class="orb-core">
-            <span class="orb-mono">&lt;SB/&gt;</span>
-            <span class="orb-sub">Associate Engineer</span>
-          </div>
-          <div class="orb-chip chip-top">Rust</div>
-          <div class="orb-chip chip-right">K8s</div>
-          <div class="orb-chip chip-bottom">Wazuh</div>
-          <div class="orb-chip chip-left">AI/MCP</div>
-        </div>
-      </div>
-
+  <!-- HUD FIXED ELEMENTS -->
+  <div id="hud-nav">
+    <div class="nav-dots">
+      <div class="nd active"></div>
+      <div class="nd"></div>
+      <div class="nd"></div>
+      <div class="nd"></div>
+      <div class="nd"></div>
     </div>
-
-    <div class="hero-scroll">
-      <div class="scroll-pill"></div>
-      <span>scroll</span>
-    </div>
-  </section>
-
-  <!-- ═══════ WHAT I DO ═══════ -->
-  <section id="specialize">
-    <div class="container">
-      <div class="spec-grid">
-        <div class="spec-card" data-num="01">
-          <div class="spec-icon-wrap">🛡️</div>
-          <h3>Detection Engineering</h3>
-          <p>Wazuh XML rulesets mapped to MITRE ATT&amp;CK. Custom Regex decoders. Kafka-backed ingestion pipelines. Building the open-source alternative to Microsoft Sentinel.</p>
-        </div>
-        <div class="spec-card" data-num="02">
-          <div class="spec-icon-wrap">⚡</div>
-          <h3>Platform Engineering</h3>
-          <p>Multi-engine Rust gRPC microservices, Kubernetes on RKE2, NebulaGraph compliance modeling, bitemporal evidence storage, and Post-Quantum cryptographic sealing.</p>
-        </div>
-        <div class="spec-card accent-spec" data-num="03">
-          <div class="spec-icon-wrap">🤖</div>
-          <h3>AI-Augmented Security</h3>
-          <p>MCP servers that let LLM agents hunt threats autonomously. Claude Code, Copilot Studio, and custom tool-augmented agent workflows built and deployed in production.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════ ABOUT ═══════ -->
-  <section id="about" class="section">
-    <div class="container">
-      <div class="sec-head">
-        <span class="sec-n">01.</span>
-        <h2>About Me</h2>
-        <div class="sec-rule"></div>
-      </div>
-      <div class="about-layout">
-        <div class="about-copy">
-          <p>I'm an <strong class="ac">Associate Engineer at Parivartan Technologies</strong>, where I'm co-building an enterprise-grade open source security and compliance platform from the ground up. The stack runs deep — from writing Wazuh detection rules at the SIEM layer, all the way through Rust microservices, Kubernetes orchestration, and NebulaGraph-powered compliance modeling.</p>
-          <p>I operate at the intersection of three worlds: classic security operations, modern systems engineering (Rust, gRPC, K8s), and <strong class="pu">AI-driven automation</strong>. I deploy MCP servers that make LLMs useful for real operational security tasks — not just chat, but actual threat hunting and compliance scoring.</p>
-          <p>B.E. Computer Science (IoT &amp; Cybersecurity), East Point College of Engineering, graduating 2026.</p>
-          <div class="about-chips">
-            <span class="chip">📍 Bengaluru, India</span>
-            <span class="chip">🎓 B.E. CSE · 2026</span>
-            <span class="chip open">🟢 Open to Opportunities</span>
-          </div>
-          <div class="about-stats">
-            <div class="astat"><span class="astat-n" data-target="5">0</span><span class="astat-l">gRPC Services</span></div>
-            <div class="astat"><span class="astat-n" data-target="15">0</span><span class="astat-l">Technologies</span></div>
-            <div class="astat"><span class="astat-n" data-target="4">0</span><span class="astat-l">Certifications</span></div>
-            <div class="astat"><span class="astat-n" data-target="6">0</span><span class="astat-l">Platforms</span></div>
-          </div>
-        </div>
-        <div class="term-card">
-          <div class="term-bar">
-            <div class="tdots"><span class="td td-r"></span><span class="td td-y"></span><span class="td td-g"></span></div>
-            <span class="term-title">subhash@parivartan:~$</span>
-          </div>
-          <div class="term-body">
-            <div class="tl"><span class="tc">$ whoami</span></div>
-            <div class="tl"><span class="to">subhash_bharadwaj_cs</span></div>
-            <div class="tl"><span class="tc">$ cat role.txt</span></div>
-            <div class="tl"><span class="to ta">Associate Engineer @ Parivartan</span></div>
-            <div class="tl"><span class="tc">$ ls expertise/</span></div>
-            <div class="tl"><span class="to">rust/ wazuh/ k8s/ ai-agents/ mcp/</span></div>
-            <div class="tl"><span class="tc">$ cat education.txt</span></div>
-            <div class="tl"><span class="to">B.E. CSE (IoT &amp; Cybersecurity) 2026</span></div>
-            <div class="tl"><span class="tc">$ systemctl status opportunities</span></div>
-            <div class="tl"><span class="to tg">● Active (running) — OPEN=true</span></div>
-            <div class="tl tc">$ <span class="tblink">█</span></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════ SKILLS ═══════ -->
-  <section id="skills" class="section">
-    <div class="container">
-      <div class="sec-head">
-        <span class="sec-n">02.</span>
-        <h2>Technical Skills</h2>
-        <div class="sec-rule"></div>
-      </div>
-      <div class="skills-grid">
-        <div class="sk-cat"><div class="sk-head"><span>🛡️</span><h3>Detection &amp; SIEM</h3></div><div class="sk-tags"><span class="stag hot">Wazuh Expert ★</span><span class="stag">Splunk</span><span class="stag">ELK Stack</span><span class="stag">Suricata</span><span class="stag">Graylog</span><span class="stag">Zeek</span></div></div>
-        <div class="sk-cat"><div class="sk-head"><span>🤖</span><h3>AI &amp; Agents</h3></div><div class="sk-tags"><span class="stag">MCP Servers</span><span class="stag">Claude Code</span><span class="stag">Agentic AI</span><span class="stag">Copilot Studio</span><span class="stag">LLM Workflows</span></div></div>
-        <div class="sk-cat"><div class="sk-head"><span>⚡</span><h3>Languages</h3></div><div class="sk-tags"><span class="stag hot">Rust ★</span><span class="stag">Python</span><span class="stag">Bash</span><span class="stag">SQL</span><span class="stag">nGQL</span><span class="stag">Regex</span><span class="stag">YARA</span></div></div>
-        <div class="sk-cat"><div class="sk-head"><span>☸️</span><h3>Infrastructure</h3></div><div class="sk-tags"><span class="stag">Kubernetes RKE2</span><span class="stag">Apache Kafka</span><span class="stag">Docker</span><span class="stag">Ansible</span><span class="stag">Linux</span></div></div>
-        <div class="sk-cat"><div class="sk-head"><span>🔐</span><h3>Security Tools</h3></div><div class="sk-tags"><span class="stag">Nmap</span><span class="stag">Wireshark</span><span class="stag">Burp Suite</span><span class="stag">Metasploit</span><span class="stag">OpenVAS</span><span class="stag">Keycloak</span></div></div>
-        <div class="sk-cat"><div class="sk-head"><span>🗄️</span><h3>Data &amp; Platforms</h3></div><div class="sk-tags"><span class="stag">NebulaGraph</span><span class="stag">PostgreSQL</span><span class="stag">Valkey/Redis</span><span class="stag">MinIO</span><span class="stag">gRPC/Protobuf</span><span class="stag">GraphQL</span></div></div>
-        <div class="sk-cat"><div class="sk-head"><span>🔒</span><h3>Cryptography</h3></div><div class="sk-tags"><span class="stag">Ed25519</span><span class="stag">PQC / CRYSTALS-Dilithium3</span><span class="stag">Merkle Trees</span><span class="stag">TLS/mTLS</span><span class="stag">JWT</span></div></div>
-        <div class="sk-cat"><div class="sk-head"><span>📋</span><h3>Frameworks</h3></div><div class="sk-tags"><span class="stag">MITRE ATT&amp;CK</span><span class="stag">ISO 27001</span><span class="stag">OWASP Top 10</span><span class="stag">NIST CSF</span><span class="stag">GDPR</span><span class="stag">IEC 62443</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════ EXPERIENCE ═══════ -->
-  <section id="experience" class="section">
-    <div class="container">
-      <div class="sec-head">
-        <span class="sec-n">03.</span>
-        <h2>Experience</h2>
-        <div class="sec-rule"></div>
-      </div>
-      <div class="exp-timeline">
-        <div class="exp-dot"></div>
-        <div class="exp-card">
-          <div class="exp-header">
-            <div class="exp-title-block">
-              <h3 class="exp-role">Associate Engineer</h3>
-              <span class="exp-company">Parivartan Technologies</span>
-            </div>
-            <div class="exp-meta">
-              <span class="exp-date">Jan 2025 — Present</span>
-              <span class="exp-loc">Bengaluru, India</span>
-            </div>
-          </div>
-          <p class="exp-summary">Building an enterprise-grade open-source SIEM/SOAR and compliance platform from the ground up — spanning detection engineering, Rust microservices, AI automation, and Kubernetes infrastructure.</p>
-          <div class="acc-list">
-
-            <div class="acc-item">
-              <button class="acc-btn"><span class="acc-ic">🛡️</span><span>Detection Engineering &amp; SIEM Architecture</span><span class="acc-ch">›</span></button>
-              <div class="acc-body">
-                <ul>
-                  <li>Author and fine-tune <strong>Wazuh XML rulesets</strong> mapped to MITRE ATT&CK — significantly reducing alert fatigue and false positives across client endpoints</li>
-                  <li>Design advanced <strong>Regex-based decoders</strong> to parse raw telemetry from non-standard log sources, expanding SIEM visibility across diverse stacks</li>
-                  <li>Integrated Wazuh with <strong>Apache Kafka</strong> for a resilient, high-throughput log ingestion pipeline with zero data loss during traffic spikes</li>
-                  <li>Developed Python Active Response scripts for <strong>automated IP blocking and endpoint isolation</strong> in SOAR workflows</li>
-                  <li>Contributing to an open-source SIEM &amp; SOAR ecosystem designed to <strong>rival Microsoft Sentinel</strong></li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="acc-item">
-              <button class="acc-btn"><span class="acc-ic">🤖</span><span>AI-Driven Security &amp; Agentic AI</span><span class="acc-ch">›</span></button>
-              <div class="acc-body">
-                <ul>
-                  <li>Deployed a <strong>Wazuh MCP (Model Context Protocol) server</strong> — enabling LLM agents to directly query security logs, correlate events, and provide autonomous threat hunting insights</li>
-                  <li>Daily practitioner of <strong>Claude Code, GitHub Copilot, and custom MCP integrations</strong> for security engineering, code generation, and architecture design</li>
-                  <li>Moderated Microsoft Agentic AI training tracks: <em>"Accelerate Agentic AI"</em> and <em>"Build and extend agents with pro-code capabilities in Copilot Studio"</em></li>
-                  <li>Deep expertise in MCP protocol architecture: tool registration, context passing, and agent orchestration pipelines</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="acc-item open">
-              <button class="acc-btn"><span class="acc-ic">⚙️</span><span>Security Platform Engineering — Rust Microservices</span><span class="acc-ch">›</span></button>
-              <div class="acc-body">
-                <ul>
-                  <li>Architected a <strong>multi-engine Rust gRPC microservices platform</strong> covering compliance evaluation, evidence management, cryptographic sealing, connector lifecycle, and remediation workflows</li>
-                  <li>Built a <strong>pluggable connector framework (SDK)</strong> for integrating external security tools (SIEM, EDR, IAM, vulnerability scanners) — supports OAuth2, API Key, SAML, and mTLS authentication</li>
-                  <li>Implemented <strong>REST &amp; GraphQL API gateway</strong> via Axum with JWT authentication, rate limiting, and WebSocket support</li>
-                  <li>Built cryptographic evidence sealing with <strong>Ed25519 and Post-Quantum hybrid signatures</strong>, Merkle tree integrity verification, and immutable object storage</li>
-                  <li>Implemented serde-based configuration management with environment variable overrides, custom deserializers, and structured diagnostic logging</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="acc-item">
-              <button class="acc-btn"><span class="acc-ic">🕸️</span><span>Compliance Graph Database &amp; Scoring</span><span class="acc-ch">›</span></button>
-              <div class="acc-body">
-                <ul>
-                  <li>Architected a <strong>compliance graph database</strong> (NebulaGraph) mapping enterprise IT environments — controls, frameworks, requirements, and evidence via typed relationships</li>
-                  <li>Enabled "collect once, satisfy many" evidence propagation — a single evidence item automatically satisfies overlapping requirements across multiple frameworks</li>
-                  <li>Built interactive compliance scoring with weighted aggregation, confidence weighting, category breakdowns, and temporal trend analysis</li>
-                  <li>Worked on a <strong>domain-specific language (DSL)</strong> for compliance rule authoring — with its own compiler, bytecode format, type system, and graph semantic layer</li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="acc-item">
-              <button class="acc-btn"><span class="acc-ic">☸️</span><span>Infrastructure &amp; DevOps</span><span class="acc-ch">›</span></button>
-              <div class="acc-body">
-                <ul>
-                  <li>Managed <strong>Kubernetes (RKE2)</strong> deployments — multi-stage Docker builds, K8s manifests, namespace configuration, network policies, cert-manager/EJBCA certificate provisioning</li>
-                  <li>Operated full infrastructure stack: <strong>PostgreSQL (CNPG), Valkey/Redis, NebulaGraph (3-node cluster), MinIO, Kafka (Strimzi operator)</strong></li>
-                  <li>Debugged cross-service configuration issues at the Rust/serde/env-var level, contributing fixes that <strong>unblocked the entire team's deployment pipeline</strong></li>
-                </ul>
-              </div>
-            </div>
-
-            <div class="acc-item">
-              <button class="acc-btn"><span class="acc-ic">🎤</span><span>Microsoft AI Training — Technical Moderator</span><span class="acc-ch">›</span></button>
-              <div class="acc-body">
-                <ul>
-                  <li>Provided real-time technical chat and lab support for Microsoft Agentic AI live training tracks, serving as a technical authority for participants</li>
-                  <li>Hands-on tested and validated lab environments to troubleshoot complex AI tool configurations on the fly</li>
-                  <li>Tracks: <em>Accelerate Agentic AI</em> · <em>Build and extend agents with pro-code capabilities in Copilot Studio</em></li>
-                </ul>
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════ PROJECTS ═══════ -->
-  <section id="projects" class="section">
-    <div class="container">
-      <div class="sec-head">
-        <span class="sec-n">04.</span>
-        <h2>Projects</h2>
-        <div class="sec-rule"></div>
-      </div>
-      <div class="proj-grid">
-
-        <div class="proj-card featured-card">
-          <div class="fc-layout">
-            <div class="fc-left">
-              <span class="proj-label">Featured · 2025</span>
-              <h3 class="proj-title">EBC2 Security Platform</h3>
-              <p class="proj-sub">Enterprise-Grade Compliance &amp; Evidence Platform</p>
-              <p class="proj-body">Enterprise compliance platform built on a multi-engine Rust gRPC microservices architecture. Features a pluggable connector SDK for integrating security tools, a custom domain-specific language with its own compiler, graph-based compliance modeling with "collect once, satisfy many" propagation, bitemporal evidence storage with Ed25519 + Post-Quantum cryptographic sealing, and full Kubernetes deployment on RKE2.</p>
-              <div class="proj-arch">
-                <span class="arch-label">Architecture</span>
-                <div class="arch-nodes">
-                  <div class="arch-center">Gateway<br><small>API Layer</small></div>
-                  <div class="arch-node an-top">Evaluate<br><small>Compliance</small></div>
-                  <div class="arch-node an-right">Evidence<br><small>Sealing</small></div>
-                  <div class="arch-node an-br">Connect<br><small>Integrations</small></div>
-                  <div class="arch-node an-bl">Remediate<br><small>Workflows</small></div>
-                </div>
-              </div>
-            </div>
-            <div class="fc-tags">
-              <span class="ptag">Rust</span><span class="ptag">gRPC</span><span class="ptag">Kubernetes</span><span class="ptag">NebulaGraph</span><span class="ptag">Kafka</span><span class="ptag">Ed25519</span><span class="ptag">Post-Quantum</span><span class="ptag">PostgreSQL</span><span class="ptag">MinIO</span>
-            </div>
-          </div>
-        </div>
-
-        <div class="proj-card">
-          <span class="proj-label">Dec 2024</span>
-          <h3 class="proj-title">Adversarial Simulation Lab</h3>
-          <p class="proj-body">SOC simulation environment using Wazuh, Splunk, and Kali Linux. Simulated brute force, SQLi, and privilege escalation attacks via Atomic Red Team. Wrote custom SPL queries and Wazuh XML rules with measured true/false positive rates.</p>
-          <div class="proj-tags-row"><span class="ptag">Wazuh</span><span class="ptag">Splunk</span><span class="ptag">Kali</span><span class="ptag">MITRE ATT&amp;CK</span><span class="ptag">SPL</span></div>
-        </div>
-
-        <div class="proj-card">
-          <span class="proj-label">Oct 2024</span>
-          <h3 class="proj-title">Linux From Scratch</h3>
-          <p class="proj-body">Built a minimal Linux OS entirely from source — GCC, Binutils, Glibc toolchain, SysVinit, and GRUB bootloader in a controlled chroot environment. Deep understanding of OS internals and the kernel build process.</p>
-          <div class="proj-tags-row"><span class="ptag">Linux</span><span class="ptag">GCC</span><span class="ptag">Glibc</span><span class="ptag">GRUB</span><span class="ptag">Systems</span></div>
-        </div>
-
-        <div class="proj-card">
-          <span class="proj-label">Jan 2025</span>
-          <h3 class="proj-title">Metasploitable Pentest</h3>
-          <p class="proj-body">Comprehensive penetration test on Metasploitable targets using Nmap, Burp Suite, and Metasploit. Delivered an OWASP-based remediation report with severity ratings, CVE references, and mitigation strategies per finding.</p>
-          <div class="proj-tags-row"><span class="ptag">Metasploit</span><span class="ptag">Nmap</span><span class="ptag">Burp Suite</span><span class="ptag">OWASP</span></div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════ CERTIFICATIONS ═══════ -->
-  <section id="certifications" class="section">
-    <div class="container">
-      <div class="sec-head">
-        <span class="sec-n">05.</span>
-        <h2>Certifications</h2>
-        <div class="sec-rule"></div>
-      </div>
-      <div class="certs-row">
-        <div class="cert-card"><span class="cert-ico">🏛️</span><div><h4>Deloitte Cybersecurity Job Simulation</h4><span>Deloitte · 2024</span></div></div>
-        <div class="cert-card"><span class="cert-ico">🛡️</span><div><h4>ZSecurity Ethical Hacking</h4><span>ZSecurity · 2024</span></div></div>
-        <div class="cert-card"><span class="cert-ico">🐛</span><div><h4>Bug Bounty &amp; Web Security</h4><span>2024</span></div></div>
-        <div class="cert-card"><span class="cert-ico">☁️</span><div><h4>AWS Networking Basics</h4><span>Amazon Web Services · 2024</span></div></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══════ CONTACT ═══════ -->
-  <section id="contact" class="section">
-    <div class="container">
-      <div class="contact-wrap">
-        <div class="contact-left">
-          <div class="sec-head">
-            <span class="sec-n">06.</span>
-            <h2>Get In Touch</h2>
-            <div class="sec-rule"></div>
-          </div>
-          <p class="contact-intro">Open to security engineering roles, platform engineering opportunities, and interesting conversations about detection engineering, Rust, and AI security automation.</p>
-          <div class="contact-items">
-            <a href="mailto:bharadwajsubhash4@gmail.com" class="citem">
-              <span class="citem-ic">📧</span>
-              <div><span class="citem-l">Email</span><span class="citem-v">bharadwajsubhash4@gmail.com</span></div>
-            </a>
-            <a href="https://linkedin.com/in/subhash-bharadwaj-391209281" target="_blank" class="citem">
-              <span class="citem-ic">💼</span>
-              <div><span class="citem-l">LinkedIn</span><span class="citem-v">Subhash Bharadwaj</span></div>
-            </a>
-            <div class="citem">
-              <span class="citem-ic">📍</span>
-              <div><span class="citem-l">Location</span><span class="citem-v">Bengaluru, India</span></div>
-            </div>
-          </div>
-        </div>
-        <form class="contact-form" id="contact-form" action="mailto:bharadwajsubhash4@gmail.com" method="get">
-          <div class="fg"><label for="cname">Name</label><input type="text" id="cname" name="name" placeholder="Your name" required /></div>
-          <div class="fg"><label for="cemail">Email</label><input type="email" id="cemail" name="email" placeholder="your@email.com" required /></div>
-          <div class="fg"><label for="cmsg">Message</label><textarea id="cmsg" name="body" rows="5" placeholder="What's on your mind?" required></textarea></div>
-          <button type="submit" class="btn-accent full">
-            Send Message
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>
-          </button>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- FOOTER -->
-  <footer>
-    <div class="footer-wrap">
-      <span class="footer-brand">&lt;SB/&gt;</span>
-      <p>Designed &amp; engineered by <strong>Subhash Bharadwaj C S</strong></p>
-      <div class="footer-links">
-        <a href="https://linkedin.com/in/subhash-bharadwaj-391209281" target="_blank">LinkedIn</a>
-        <a href="mailto:bharadwajsubhash4@gmail.com">Email</a>
-      </div>
-    </div>
-  </footer>
-
-  <!-- BACK TO TOP -->
-  <button id="back-top" aria-label="Back to top">
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5,12 12,5 19,12"/></svg>
-  </button>
+  </div>
+  <div id="hud-corner-tl">SB // CORE</div>
+  <div id="hud-corner-tr"><a href="latest resume.pdf" download>RESUME.PDF</a></div>
+  <div id="hud-coords">Z: 000 | V: 0.00</div>
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.1.0/typed.umd.js"></script>
   <script src="main.js"></script>
 </body>
 </html>
