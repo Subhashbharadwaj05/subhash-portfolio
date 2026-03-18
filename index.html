@@ -4,194 +4,254 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description" content="Subhash Bharadwaj C S — Systems & Security Engineer." />
-  <title>SB // SYSTEM CORE</title>
+  <title>Subhash Bharadwaj | Associate Engineer</title>
+  
+  <!-- Massive Typography Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body class="loading">
 
-  <!-- CUSTOM CURSOR -->
-  <div id="cursor-dot"></div>
-  <div id="cursor-target">
-    <div class="ct-t ct-tl"></div><div class="ct-t ct-tr"></div>
-    <div class="ct-t ct-bl"></div><div class="ct-t ct-br"></div>
+  <!-- Minimal Preloader -->
+  <div id="loader">
+    <div class="l-track"><div class="l-fill"></div></div>
   </div>
 
-  <!-- THE BOOT TERMINAL (Playful Hacker Intro) -->
-  <div id="boot-terminal">
-    <div class="bt-window">
-      <div class="bt-header">
-        <span class="bt-red"></span><span class="bt-yel"></span><span class="bt-grn"></span>
-        <span class="bt-title">sb_core_init.sh</span>
-      </div>
-      <div class="bt-body" id="bt-output">
-        <p>> INITIALIZING SECURE ENVIRONMENT...</p>
-        <p>> ESTABLISHING MAINFRAME UPLINK... OK</p>
-        <p class="blink-line">> ENTER OVERRIDE COMMAND (Type anything): <span id="bt-input"></span><span class="bt-cursor">█</span></p>
-      </div>
-    </div>
-  </div>
+  <!-- Interactive WebGL-style Canvas Grid -->
+  <canvas id="grid-canvas"></canvas>
 
-  <!-- PERSISTENT BACKGROUND -->
-  <canvas id="warp-bg"></canvas>
+  <!-- Custom Cursor Wrapper for Flashlight effects -->
+  <div id="cursor-glow"></div>
 
-  <!-- GSAP SCROLL PROXY (Forces height) -->
-  <div id="scroll-proxy"></div>
+  <!-- Smooth Scroll Wrapper for Lenis -->
+  <div id="smooth-wrapper">
+    <div id="smooth-content">
 
-  <!-- FIXED 3D UNIVERSE -->
-  <div id="universe">
-    <div id="camera">
-      
-      <!-- 1. HERO MONOLITH -->
-      <section class="panel p-hero">
-        <div class="panel-content gl-hero">
-          <div class="hud-top">
-            <span class="hud-lbl">SEC_L1</span>
-            <span class="hud-lbl">SYS: ONLINE</span>
-          </div>
-          <h1 class="hero-name" data-glitch="SUBHASH BHARADWAJ">SUBHASH BHARADWAJ</h1>
-          <h2 class="hero-role">ASSOCIATE ENGINEER <span>// Parivartan Tech</span></h2>
-          <div class="hero-tags">
-            <span class="htag">RUST</span>
-            <span class="htag">K8s</span>
-            <span class="htag">WAZUH</span>
-            <span class="htag">AI/MCP</span>
-          </div>
-          <p class="hero-desc">Building enterprise grade SIEM/SOAR platforms, cryptographic sealing layers, and autonomous AI-augmented security agents.</p>
-          <div class="hud-bot">
-            <span class="hud-scroll">SCROLL TO ADVANCE Z-AXIS [▼]</span>
+      <!-- Navigation -->
+      <nav id="nav" class="nav">
+        <div class="nav-brand">SB.</div>
+        <div class="nav-links">
+          <a href="#identity" class="nav-link" data-text="Identity">Identity</a>
+          <a href="#projects" class="nav-link" data-text="Projects">Projects</a>
+          <a href="#capabilities" class="nav-link" data-text="Capabilities">Capabilities</a>
+          <a href="#experience" class="nav-link" data-text="Experience">Experience</a>
+        </div>
+        <a href="latest resume.pdf" download class="nav-btn">Resume ↓</a>
+      </nav>
+
+      <!-- Hero Section -->
+      <header id="hero" class="hero section">
+        <div class="hero-inner">
+          <p class="hero-eyebrow fade-el">Systems & Security Engineering</p>
+          <h1 class="hero-title fade-el">SUBHASH<br>BHARADWAJ.</h1>
+          <div class="hero-bottom fade-el">
+            <h2 class="hero-role">ASSOCIATE ENGINEER <span class="dim">@ PARIVARTAN TECHNOLOGIES</span></h2>
+            <p class="hero-desc">Architecting resilience. Building enterprise-grade SIEM/SOAR platforms, Rust microservices, and autonomous AI-augmented security infrastructure.</p>
           </div>
         </div>
-      </section>
+      </header>
 
-      <!-- 2. DETECTION & PLATFORM -->
-      <section class="panel p-about">
-        <div class="panel-content spl-about">
-          <div class="ab-grid">
-            <div class="ab-pane">
-              <span class="pane-id">MODULE 01</span>
+      <!-- Sticky Scroll: Identity -->
+      <section id="identity" class="identity section">
+        <div class="sticky-container">
+          <div class="sticky-left">
+            <span class="section-num">01</span>
+            <h2 class="section-title">ENGINEERING<br>IDENTITY</h2>
+          </div>
+          <div class="sticky-right">
+            <div class="id-block">
               <h3>Detection Engineering</h3>
-              <p>Authoring strict Wazuh XML rulesets mapped directly to MITRE ATT&amp;CK. Developing Kafka-backed ingestion pipelines and custom Regex decoders for non-standard telemetry, creating a resilient open-source equivalent to Sentinel.</p>
+              <p>I author strict Wazuh XML rulesets mapped directly to MITRE ATT&amp;CK. By developing Kafka-backed ingestion pipelines and custom Regex decoders for non-standard telemetry, I'm building a resilient open-source equivalent to Sentinel.</p>
             </div>
-            <div class="ab-pane">
-              <span class="pane-id">MODULE 02</span>
-              <h3>Platform Engineering</h3>
-              <p>Architecting multi-engine Rust gRPC microservices deployed on RKE2. Implementing bitemporal evidence storage, Post-Quantum cryptographic sealing, and interactive NebulaGraph compliance modeling.</p>
+            <div class="id-block">
+              <h3>Platform Architecture (Rust)</h3>
+              <p>Architecting multi-engine Rust gRPC microservices deployed on RKE2 clusters. My work includes implementing bitemporal evidence storage, Post-Quantum cryptographic sealing, and interactive NebulaGraph compliance modeling.</p>
             </div>
-            <div class="ab-pane accent-pane">
-              <span class="pane-id">MODULE 03</span>
-              <h3>Agentic AI</h3>
-              <p>Deploying MCP (Model Context Protocol) servers that allow LLMs to directly execute threat hunting and compliance workflows securely. Bridging the gap between declarative agents and raw infrastructure.</p>
+            <div class="id-block">
+              <h3>AI-Augmented Security</h3>
+              <p>Deploying MCP (Model Context Protocol) servers that allow LLMs to securely execute threat hunting and compliance workflows. I bridge the gap between declarative AI agents and raw infrastructure.</p>
             </div>
           </div>
         </div>
       </section>
 
-      <!-- 3. ORBITAL SKILLS -->
-      <section class="panel p-skills">
-        <div class="panel-content gl-skills">
-          <span class="hud-lbl center-hud">TECH_MATRIX_ENGAGED</span>
-          <div class="skill-cloud">
-            <div class="s-col">
-              <h4>Languages</h4>
-              <div class="s-wrap"><span class="s-pill hot">Rust Core ★</span><span class="s-pill">Python</span><span class="s-pill">Bash</span><span class="s-pill">SQL/nGQL</span></div>
+      <!-- Horizontal Scroll: Projects -->
+      <section id="projects" class="projects">
+        <div class="proj-header">
+          <span class="section-num">02</span>
+          <h2 class="section-title">SELECTED WORK</h2>
+        </div>
+        
+        <!-- The Horizontal Track -->
+        <div class="proj-track-wrapper">
+          <div class="proj-track">
+            
+            <!-- Project 1 -->
+            <div class="proj-card">
+              <div class="pc-inner has-glow">
+                <div class="pc-top">
+                  <span class="pc-year">2025 · Flagship Platform</span>
+                  <h3 class="pc-title">EBC2 Security Engine</h3>
+                </div>
+                <div class="pc-content">
+                  <p>An enterprise-grade compliance and evidence sealing engine. "Collect once, satisfy many" dynamic requirement mapping using NebulaGraph.</p>
+                  <ul class="pc-list">
+                    <li>Pluggable Rust connector SDK (OAuth2, mTLS)</li>
+                    <li>Custom DSL for compliance rule authoring</li>
+                    <li>Ed25519 + Post-Quantum hybrid signatures</li>
+                    <li>Full K8s deployment via custom manifests</li>
+                  </ul>
+                </div>
+                <div class="pc-tags"><span class="tag">Rust</span><span class="tag">gRPC</span><span class="tag">Kubernetes</span><span class="tag">NebulaGraph</span><span class="tag">PQC</span></div>
+              </div>
             </div>
-            <div class="s-col">
-              <h4>Detection</h4>
-              <div class="s-wrap"><span class="s-pill hot">Wazuh ★</span><span class="s-pill">Splunk</span><span class="s-pill">Suricata</span><span class="s-pill">Zeek</span></div>
+
+            <!-- Project 2 -->
+            <div class="proj-card">
+              <div class="pc-inner has-glow">
+                <div class="pc-top">
+                  <span class="pc-year">Dec 2024</span>
+                  <h3 class="pc-title">Adversarial Sim Lab</h3>
+                </div>
+                <div class="pc-content">
+                  <p>A comprehensive SOC simulation environment utilizing Wazuh, Splunk, and Kali Linux. Simulated brute force, SQL injections, and privilege escalation attacks via Atomic Red Team.</p>
+                  <ul class="pc-list">
+                    <li>Custom SPL queries for threat hunting</li>
+                    <li>Wazuh XML rules with measured TPR/FPR</li>
+                    <li>Automated attack emulation</li>
+                  </ul>
+                </div>
+                <div class="pc-tags"><span class="tag">Wazuh</span><span class="tag">Splunk</span><span class="tag">Kali</span><span class="tag">MITRE ATT&amp;CK</span></div>
+              </div>
             </div>
-            <div class="s-col">
-              <h4>Infra & Data</h4>
-              <div class="s-wrap"><span class="s-pill">K8s / RKE2</span><span class="s-pill">Kafka</span><span class="s-pill">NebulaGraph</span><span class="s-pill">PostgreSQL</span></div>
+
+            <!-- Project 3 -->
+            <div class="proj-card">
+              <div class="pc-inner has-glow">
+                <div class="pc-top">
+                  <span class="pc-year">Oct 2024</span>
+                  <h3 class="pc-title">Linux From Scratch</h3>
+                </div>
+                <div class="pc-content">
+                  <p>Built a minimal Linux OS entirely from source within a controlled chroot environment. Cultivated deep understanding of OS internals, memory management, and the kernel build process.</p>
+                  <ul class="pc-list">
+                    <li>Compiled GCC, Binutils, Glibc toolchain</li>
+                    <li>Configured SysVinit and GRUB bootloader</li>
+                    <li>Custom kernel compilation</li>
+                  </ul>
+                </div>
+                <div class="pc-tags"><span class="tag">Linux Core</span><span class="tag">GCC</span><span class="tag">Glibc</span><span class="tag">Systems</span></div>
+              </div>
             </div>
-            <div class="s-col">
-              <h4>Crypto & AI</h4>
-              <div class="s-wrap"><span class="s-pill">Ed25519</span><span class="s-pill">PQC/Dilithium</span><span class="s-pill hot">MCP Servers ★</span><span class="s-pill">Claude Code</span></div>
-            </div>
+
           </div>
         </div>
       </section>
 
-      <!-- 4. SIGNATURE PROJECT -->
-      <section class="panel p-project">
-        <div class="panel-content gl-project">
-          <div class="proj-split">
-            <div class="ps-left">
-              <span class="hud-lbl">FLAGSHIP_ARCHITECTURE</span>
-              <h2 class="proj-title">EBC2 Platform</h2>
-              <p class="proj-desc">An enterprise-grade compliance and evidence sealing engine. "Collect once, satisfy many" dynamic requirement mapping using NebulaGraph.</p>
-              <ul class="proj-feats">
-                <li><span>▸</span> Pluggable Rust connector SDK (OAuth2, mTLS)</li>
-                <li><span>▸</span> Custom DSL for compliance rule authoring</li>
-                <li><span>▸</span> Ed25519 + Post-Quantum hybrid evidence signatures</li>
-                <li><span>▸</span> Full K8s deployment via custom manifests</li>
-              </ul>
-              <div class="proj-links">
-                <span class="hud-lbl">INTERNAL DEPLOYMENT ONLY</span>
-              </div>
-            </div>
-            <div class="ps-right">
-              <!-- Holographic Architecture Graphic -->
-              <div class="holo-arch">
-                <div class="ha-center">API Gateway</div>
-                <div class="ha-node ha-n1">Compliance<br>Graph</div>
-                <div class="ha-node ha-n2">Evidence<br>Sealing</div>
-                <div class="ha-node ha-n3">Connector<br>SDK</div>
-                <div class="ha-node ha-n4">Remediation<br>Engine</div>
-                <div class="ha-lines"></div>
-              </div>
+      <!-- Bento Grid: Capabilities -->
+      <section id="capabilities" class="capabilities section">
+        <div class="cap-header">
+          <span class="section-num">03</span>
+          <h2 class="section-title">CAPABILITIES</h2>
+        </div>
+        <div class="cap-grid">
+          
+          <div class="c-bento has-glow span-2">
+            <h3>Languages & Core</h3>
+            <div class="bento-tags">
+              <span class="bt">Rust</span><span class="bt">Python</span><span class="bt">Bash</span><span class="bt">SQL</span><span class="bt">nGQL</span><span class="bt">Regex</span><span class="bt">YARA</span>
             </div>
           </div>
+          
+          <div class="c-bento has-glow">
+            <h3>Detection (SIEM)</h3>
+            <div class="bento-tags">
+              <span class="bt">Wazuh</span><span class="bt">Splunk</span><span class="bt">Suricata</span><span class="bt">Zeek</span>
+            </div>
+          </div>
+          
+          <div class="c-bento has-glow">
+            <h3>Infra & Data</h3>
+            <div class="bento-tags">
+              <span class="bt">K8s / RKE2</span><span class="bt">Kafka</span><span class="bt">NebulaGraph</span><span class="bt">PostgreSQL</span><span class="bt">MinIO</span>
+            </div>
+          </div>
+          
+          <div class="c-bento has-glow span-2">
+            <h3>AI & Cryptography</h3>
+            <div class="bento-tags">
+              <span class="bt">MCP Servers</span><span class="bt">Claude Code</span><span class="bt">Agentic Workflows</span><span class="bt">Ed25519</span><span class="bt">PQC (Dilithium3)</span>
+            </div>
+          </div>
+
         </div>
       </section>
 
-      <!-- 5. TERMINAL CONTACT ENDPOINT -->
-      <section class="panel p-contact">
-        <div class="panel-content gl-contact">
-          <h2 class="c-title">TRANSMISSION ENDPOINT</h2>
-          <div class="c-grid">
-            <div class="c-info">
-              <p>Looking to build resilient security infrastructure or bridge AI with core engineering? Initialize a connection.</p>
-              <div class="c-links">
-                <a href="mailto:bharadwajsubhash4@gmail.com" class="c-btn"><span class="c-ic">✉</span> bharadwajsubhash4@gmail.com</a>
-                <a href="https://linkedin.com/in/subhash-bharadwaj-391209281" target="_blank" class="c-btn"><span class="c-ic">in</span> LinkedIn Profile</a>
-                <a href="latest resume.pdf" download class="c-btn accent-cbtn"><span class="c-ic">↓</span> Download Resume Payload</a>
+      <!-- Experience (Minimalist List) -->
+      <section id="experience" class="exp section">
+        <div class="exp-header">
+          <span class="section-num">04</span>
+          <h2 class="section-title">EXPERIENCE</h2>
+        </div>
+        <div class="exp-list">
+          
+          <div class="exp-row">
+            <div class="er-top">
+              <h3 class="er-role">Associate Engineer</h3>
+              <div class="er-meta">
+                <span class="er-company">Parivartan Technologies</span>
+                <span class="er-date">Jan 2025 — Present</span>
               </div>
             </div>
-            <div class="c-sys">
-              <div class="sys-msg">> SECURE CHANNEL OPEN.</div>
-              <div class="sys-msg">> WAITING FOR HANDSHAKE...</div>
-              <div class="sys-blink">█</div>
+            <div class="er-body">
+              <p>Building an enterprise-grade SIEM/SOAR platform. Architecting multi-engine Rust gRPC microservices, deploying Wazuh log ingestion via Kafka, modeling compliance in NebulaGraph, and integrating autonomous threat-hunting LLMs via custom MCP servers.</p>
             </div>
           </div>
-          <div class="hud-bot spread">
-            <span>B.E. CSE 2026 // BENGALURU</span>
-            <span>SYSTEM.EXIT(0)</span>
+
+          <div class="exp-row">
+            <div class="er-top">
+              <h3 class="er-role">Technical Moderator</h3>
+              <div class="er-meta">
+                <span class="er-company">Microsoft AI Training</span>
+                <span class="er-date">2024</span>
+              </div>
+            </div>
+            <div class="er-body">
+              <p>Provided real-time technical lab support for <em>Accelerate Agentic AI</em> tracks, troubleshooting complex Copilot Studio integrations and serving as a technical authority for participants.</p>
+            </div>
           </div>
+
         </div>
       </section>
+
+      <!-- Massive Footer -->
+      <footer id="contact" class="footer section">
+        <p class="f-eyebrow">READY TO BUILD?</p>
+        <a href="mailto:bharadwajsubhash4@gmail.com" class="f-massive-link">GET IN TOUCH.</a>
+        
+        <div class="f-bottom">
+          <div class="fb-left">
+            <span>© 2025 Subhash Bharadwaj C S</span>
+            <span>Bengaluru, India</span>
+          </div>
+          <div class="fb-right">
+            <a href="https://linkedin.com/in/subhash-bharadwaj-391209281" target="_blank" class="f-link">LinkedIn ↗</a>
+            <a href="latest resume.pdf" download class="f-link">Resume ↗</a>
+          </div>
+        </div>
+      </footer>
 
     </div>
   </div>
 
-  <!-- HUD FIXED ELEMENTS -->
-  <div id="hud-nav">
-    <div class="nav-dots">
-      <div class="nd active"></div>
-      <div class="nd"></div>
-      <div class="nd"></div>
-      <div class="nd"></div>
-      <div class="nd"></div>
-    </div>
-  </div>
-  <div id="hud-corner-tl">SB // CORE</div>
-  <div id="hud-corner-tr"><a href="latest resume.pdf" download>RESUME.PDF</a></div>
-  <div id="hud-coords">Z: 000 | V: 0.00</div>
-
+  <!-- CDN Dependencies -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@studio-freight/lenis@1.0.39/dist/lenis.min.js"></script>
+  
   <script src="main.js"></script>
 </body>
 </html>
