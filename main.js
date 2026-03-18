@@ -48,6 +48,7 @@ function initScrollProgress() {
 function initCursor() {
   const dot = document.getElementById('cursor');
   const ring = document.getElementById('cursor-ring');
+  const orb = document.querySelector('.orb-system');
   if(!dot || !ring) return;
   
   let tx = 0, ty = 0, cx = 0, cy = 0;
@@ -63,6 +64,14 @@ function initCursor() {
     cy += (ty - cy) * 0.15;
     ring.style.left = cx + 'px';
     ring.style.top = cy + 'px';
+
+    // Orb Parallax
+    if(orb) {
+      const px = (tx - window.innerWidth/2) * 0.04;
+      const py = (ty - window.innerHeight/2) * 0.04;
+      orb.style.transform = `translate(${px}px, ${py}px)`;
+    }
+
     requestAnimationFrame(loop);
   }
   loop();
@@ -71,6 +80,16 @@ function initCursor() {
   document.querySelectorAll(interactives).forEach(el => {
     el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hov'));
     el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hov'));
+  });
+
+  // Click burst effect
+  document.addEventListener('click', e => {
+    const b = document.createElement('div');
+    b.className = 'click-burst';
+    b.style.left = e.clientX + 'px';
+    b.style.top = e.clientY + 'px';
+    document.body.appendChild(b);
+    setTimeout(() => b.remove(), 600);
   });
 }
 
