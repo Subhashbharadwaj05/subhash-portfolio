@@ -1,316 +1,265 @@
 /* =============================================================
    SUBHASH BHARADWAJ — PORTFOLIO MAIN.JS
-   Particle system · GSAP · Typed.js · Custom cursor · Accordion
-   Preloader · Scroll progress · Card tilt · Back-to-top
    ============================================================= */
 
-/* ─── Wait for DOM ─── */
+// --- WAIT FOR DOM ---
 document.addEventListener('DOMContentLoaded', () => {
   initPreloader();
   initScrollProgress();
-  initBackTop();
-  initParticles();
   initCursor();
-  initNavbar();
-  initMobileMenu();
+  initNav();
+  initParticles();
   initTyped();
   initGSAP();
   initAccordions();
-  initStatCounters();
-  initContactForm();
-  initCardTilt();
+  initCounters();
+  initBackTop();
 });
 
 /* ─────────────────────────────────────────────
-   1. PARTICLE CANVAS BACKGROUND
-───────────────────────────────────────────── */
-function initParticles() {
-  const canvas = document.getElementById('bg-canvas');
-  const ctx = canvas.getContext('2d');
+   1. PRELOADER
+   ───────────────────────────────────────────── */
+function initPreloader() {
+  const loader = document.getElementById('preloader');
+  if(!loader) return;
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => {
+    loader.classList.add('out');
+    document.body.style.overflow = '';
+  }, 2200);
+}
 
-  let W, H, particles, mouse = { x: -999, y: -999 };
+/* ─────────────────────────────────────────────
+   2. SCROLL PROGRESS
+   ───────────────────────────────────────────── */
+function initScrollProgress() {
+  const bar = document.getElementById('scroll-bar');
+  if(!bar) return;
+  window.addEventListener('scroll', () => {
+    const s = window.scrollY;
+    const h = document.documentElement.scrollHeight - window.innerHeight;
+    bar.style.width = h > 0 ? (s/h * 100) + '%' : '0%';
+  }, {passive:true});
+}
 
-  const CONFIG = {
-    count: 90,
-    maxDist: 130,
-    speed: 0.35,
-    radius: 1.8,
-    color: '0,255,200',
-    lineAlpha: 0.12,
-  };
-
-  function resize() {
-    W = canvas.width = window.innerWidth;
-    H = canvas.height = window.innerHeight;
+/* ─────────────────────────────────────────────
+   3. CUSTOM CURSOR
+   ───────────────────────────────────────────── */
+function initCursor() {
+  const dot = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  if(!dot || !ring) return;
+  
+  let tx = 0, ty = 0, cx = 0, cy = 0;
+  
+  document.addEventListener('mousemove', e => {
+    tx = e.clientX; ty = e.clientY;
+    dot.style.left = tx + 'px';
+    dot.style.top = ty + 'px';
+  });
+  
+  function loop() {
+    cx += (tx - cx) * 0.15;
+    cy += (ty - cy) * 0.15;
+    ring.style.left = cx + 'px';
+    ring.style.top = cy + 'px';
+    requestAnimationFrame(loop);
   }
+  loop();
 
-  function Particle() {
-    this.x = Math.random() * W;
-    this.y = Math.random() * H;
-    this.vx = (Math.random() - 0.5) * CONFIG.speed;
-    this.vy = (Math.random() - 0.5) * CONFIG.speed;
-    this.r = Math.random() * CONFIG.radius + 0.5;
-    this.alpha = Math.random() * 0.5 + 0.2;
-  }
+  const interactives = 'a, button, .acc-btn, .spec-card, .sk-cat, .proj-card, .cert-card, input, textarea, .citem, .nav-brand';
+  document.querySelectorAll(interactives).forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hov'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hov'));
+  });
+}
 
-  Particle.prototype.update = function () {
-    this.x += this.vx;
-    this.y += this.vy;
-    if (this.x < 0 || this.x > W) this.vx *= -1;
-    if (this.y < 0 || this.y > H) this.vy *= -1;
+/* ─────────────────────────────────────────────
+   4. NAVBAR & MOBILE MENU
+   ───────────────────────────────────────────── */
+function initNav() {
+  const nav = document.getElementById('nav');
+  const links = document.querySelectorAll('.nl');
+  const secs = document.querySelectorAll('section[id]');
+  
+  window.addEventListener('scroll', () => {
+    if(window.scrollY > 40) nav.classList.add('stuck');
+    else nav.classList.remove('stuck');
 
-    // Mouse repulsion
-    const dx = this.x - mouse.x;
-    const dy = this.y - mouse.y;
-    const dist = Math.sqrt(dx * dx + dy * dy);
-    if (dist < 100) {
-      const force = (100 - dist) / 100;
-      this.x += dx * force * 0.04;
-      this.y += dy * force * 0.04;
+    let curr = '';
+    secs.forEach(s => { if(window.scrollY >= s.offsetTop - 150) curr = s.id; });
+    links.forEach(l => {
+      l.classList.toggle('on', l.getAttribute('href') === '#' + curr);
+    });
+  }, {passive:true});
+
+  const btn = document.getElementById('ham');
+  const menu = document.getElementById('mob-menu');
+  if(!btn || !menu) return;
+
+  btn.addEventListener('click', () => {
+    menu.classList.toggle('open');
+    const sp = btn.querySelectorAll('span');
+    if(menu.classList.contains('open')) {
+      sp[0].style.transform = 'translateY(7px) rotate(45deg)';
+      sp[1].style.opacity = '0';
+      sp[2].style.transform = 'translateY(-7px) rotate(-45deg)';
+    } else {
+      sp.forEach(s => { s.style.transform=''; s.style.opacity=''; });
     }
-  };
+  });
+  document.querySelectorAll('.mm-link').forEach(l => {
+    l.addEventListener('click', () => {
+      menu.classList.remove('open');
+      btn.querySelectorAll('span').forEach(s => { s.style.transform=''; s.style.opacity=''; });
+    });
+  });
+}
 
-  function init() {
-    resize();
-    particles = Array.from({ length: CONFIG.count }, () => new Particle());
+/* ─────────────────────────────────────────────
+   5. BACKGROUND PARTICLES (Starfield effect)
+   ───────────────────────────────────────────── */
+function initParticles() {
+  const cvs = document.getElementById('bg-canvas');
+  if(!cvs) return;
+  const ctx = cvs.getContext('2d');
+  let W, H;
+  const pts = [];
+  const C = 100;
+  
+  function resize() { W = cvs.width = window.innerWidth; H = cvs.height = window.innerHeight; }
+  window.addEventListener('resize', resize);
+  resize();
+
+  for(let i=0; i<C; i++) {
+    pts.push({
+      x: Math.random()*W, y: Math.random()*H,
+      vx: (Math.random()-0.5)*0.3, vy: (Math.random()-0.5)*0.3,
+      r: Math.random()*1.5+0.5,
+      a: Math.random()*0.5+0.1
+    });
   }
+
+  let mx = -999, my = -999;
+  window.addEventListener('mousemove', e => { mx=e.clientX; my=e.clientY; });
 
   function draw() {
-    ctx.clearRect(0, 0, W, H);
-
-    for (let i = 0; i < particles.length; i++) {
-      const p = particles[i];
-      p.update();
-
-      ctx.beginPath();
-      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(${CONFIG.color},${p.alpha})`;
-      ctx.fill();
-
-      for (let j = i + 1; j < particles.length; j++) {
-        const q = particles[j];
-        const dx = p.x - q.x;
-        const dy = p.y - q.y;
-        const d = Math.sqrt(dx * dx + dy * dy);
-        if (d < CONFIG.maxDist) {
-          const alpha = CONFIG.lineAlpha * (1 - d / CONFIG.maxDist);
-          ctx.beginPath();
-          ctx.moveTo(p.x, p.y);
-          ctx.lineTo(q.x, q.y);
-          ctx.strokeStyle = `rgba(${CONFIG.color},${alpha})`;
-          ctx.lineWidth = 0.8;
-          ctx.stroke();
-        }
+    ctx.clearRect(0,0,W,H);
+    for(let i=0; i<C; i++) {
+      let p = pts[i];
+      p.x += p.vx; p.y += p.vy;
+      if(p.x<0||p.x>W) p.vx*=-1;
+      if(p.y<0||p.y>H) p.vy*=-1;
+      
+      const dx = p.x - mx; const dy = p.y - my;
+      const d = Math.sqrt(dx*dx+dy*dy);
+      if(d < 120) {
+        p.x += dx*(120-d)*0.0005;
+        p.y += dy*(120-d)*0.0005;
       }
+      
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI*2);
+      ctx.fillStyle = `rgba(6,214,160,${p.a})`;
+      ctx.fill();
     }
     requestAnimationFrame(draw);
   }
-
-  window.addEventListener('resize', resize);
-  window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
-
-  init();
   draw();
 }
 
 /* ─────────────────────────────────────────────
-   2. CUSTOM CURSOR
-───────────────────────────────────────────── */
-function initCursor() {
-  const dot = document.getElementById('cursor');
-  const ring = document.getElementById('cursor-follower');
-  let rx = 0, ry = 0;
-
-  document.addEventListener('mousemove', e => {
-    dot.style.left = e.clientX + 'px';
-    dot.style.top = e.clientY + 'px';
-    rx += (e.clientX - rx) * 0.14;
-    ry += (e.clientY - ry) * 0.14;
-    ring.style.left = rx + 'px';
-    ring.style.top = ry + 'px';
-  });
-
-  // Smooth ring follow
-  function animateRing() {
-    requestAnimationFrame(animateRing);
-  }
-  animateRing();
-
-  // Hover states
-  const interactive = 'a, button, .acc-btn, .proj-card, .skill-cat, .cert-card, input, textarea, .social-link';
-  document.querySelectorAll(interactive).forEach(el => {
-    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
-    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
-  });
-}
-
-/* ─────────────────────────────────────────────
-   3. NAVBAR — scroll glass + active highlight
-───────────────────────────────────────────── */
-function initNavbar() {
-  const nav = document.getElementById('navbar');
-  const links = document.querySelectorAll('.nav-link');
-  const sections = document.querySelectorAll('section[id]');
-
-  window.addEventListener('scroll', () => {
-    nav.classList.toggle('scrolled', window.scrollY > 50);
-
-    let current = '';
-    sections.forEach(sec => {
-      if (window.scrollY >= sec.offsetTop - 120) current = sec.id;
-    });
-    links.forEach(l => {
-      l.classList.toggle('active', l.getAttribute('href') === '#' + current);
-    });
-  }, { passive: true });
-}
-
-/* ─────────────────────────────────────────────
-   4. MOBILE MENU
-───────────────────────────────────────────── */
-function initMobileMenu() {
-  const btn = document.getElementById('hamburger');
-  const menu = document.getElementById('mobile-menu');
-
-  btn.addEventListener('click', () => {
-    menu.classList.toggle('open');
-    const spans = btn.querySelectorAll('span');
-    if (menu.classList.contains('open')) {
-      spans[0].style.transform = 'translateY(7px) rotate(45deg)';
-      spans[1].style.opacity = '0';
-      spans[2].style.transform = 'translateY(-7px) rotate(-45deg)';
-    } else {
-      spans.forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
-    }
-  });
-
-  document.querySelectorAll('.mob-link').forEach(l => {
-    l.addEventListener('click', () => {
-      menu.classList.remove('open');
-      btn.querySelectorAll('span').forEach(s => { s.style.transform = ''; s.style.opacity = ''; });
-    });
-  });
-}
-
-/* ─────────────────────────────────────────────
-   5. TYPED.JS — hero typewriter
-───────────────────────────────────────────── */
+   6. TYPED.JS
+   ───────────────────────────────────────────── */
 function initTyped() {
-  if (typeof Typed === 'undefined') return;
+  if(typeof Typed === 'undefined') return;
   new Typed('#typed', {
     strings: [
-      'security infrastructure.',
-      'detection engineering.',
-      'Rust microservices.',
-      'AI-augmented security.',
-      'compliance platforms.',
+      'Rust Microservices.',
+      'Detection Engineering.',
+      'AI MCP Servers.',
+      'Kubernetes Infra.',
+      'Enterprise SIEM/SOAR.'
     ],
-    typeSpeed: 48,
-    backSpeed: 28,
-    backDelay: 1800,
-    loop: true,
-    smartBackspace: true,
+    typeSpeed: 50,
+    backSpeed: 30,
+    backDelay: 1500,
+    loop: true
   });
 }
 
 /* ─────────────────────────────────────────────
-   6. GSAP SCROLL ANIMATIONS
-───────────────────────────────────────────── */
+   7. GSAP SCROLL ANIMATIONS
+   ───────────────────────────────────────────── */
 function initGSAP() {
-  if (typeof gsap === 'undefined') return;
+  if(typeof gsap === 'undefined') return;
   gsap.registerPlugin(ScrollTrigger);
-
   const ease = 'power3.out';
 
-  // Hero entrance
-  gsap.from('.hero-eyebrow', { y: 30, opacity: 0, duration: 0.9, ease, delay: 0.3 });
-  gsap.from('.hero-name',    { y: 50, opacity: 0, duration: 1,   ease, delay: 0.5 });
-  gsap.from('.hero-subtitle-row', { y: 30, opacity: 0, duration: 0.9, ease, delay: 0.75 });
-  gsap.from('.hero-tagline', { y: 30, opacity: 0, duration: 0.9, ease, delay: 0.95 });
-  gsap.from('.hero-cta',     { y: 30, opacity: 0, duration: 0.9, ease, delay: 1.15 });
-  gsap.from('.scroll-hint',  { y: 20, opacity: 0, duration: 0.8, ease, delay: 1.5 });
-  gsap.from('.hero-social',  { x: -30, opacity: 0, duration: 1,  ease, delay: 1.2 });
+  // Hero Reveal (delayed for preloader)
+  const d = 2.2;
+  gsap.from('.hero-status', {y:20, opacity:0, duration:1, ease, delay:d});
+  gsap.from('.hero-name', {y:30, opacity:0, duration:1, ease, delay:d+0.2});
+  gsap.from('.hero-title-row', {y:20, opacity:0, duration:1, ease, delay:d+0.4});
+  gsap.from('.hero-typed-row', {y:20, opacity:0, duration:1, ease, delay:d+0.5});
+  gsap.from('.hero-desc', {y:20, opacity:0, duration:1, ease, delay:d+0.6});
+  gsap.from('.hero-actions', {y:20, opacity:0, duration:1, ease, delay:d+0.7});
+  gsap.from('.hero-social-rail', {opacity:0, duration:1, ease, delay:d+0.9});
+  gsap.from('.orb-system', {scale:0.8, opacity:0, duration:1.5, ease, delay:d+0.3});
 
-  // Helper: section trigger
-  function st(el, vars, triggerEl) {
-    return gsap.from(el, {
-      ...vars,
-      ease,
-      scrollTrigger: {
-        trigger: triggerEl || el,
-        start: 'top 88%',
-        toggleActions: 'play none none none',
-      }
-    });
-  }
-
-  // Section headers
-  document.querySelectorAll('.section-header').forEach(h => {
-    st(h, { y: 30, opacity: 0, duration: 0.8 });
+  // Generic sections
+  document.querySelectorAll('.sec-head').forEach(el => {
+    gsap.from(el, { scrollTrigger:{trigger:el, start:'top 85%'}, y:30, opacity:0, duration:0.8, ease });
   });
 
-  // About
-  st('.about-text',    { x: -50, opacity: 0, duration: 0.9 }, '#about');
-  st('.terminal-card', { x: 50,  opacity: 0, duration: 0.9 }, '#about');
-  st('.stats-row .stat-box', { y: 30, opacity: 0, duration: 0.6, stagger: 0.12 }, '#about');
+  // Specialize cards
+  gsap.from('.spec-card', {
+    scrollTrigger:{trigger:'.spec-grid', start:'top 85%'},
+    y:40, opacity:0, duration:0.8, stagger:0.15, ease
+  });
+
+  // About 
+  gsap.from('.term-card', {scrollTrigger:'.term-card', x:40, opacity:0, duration:1, Math});
 
   // Skills
-  gsap.from('.skill-cat', {
-    y: 40, opacity: 0, duration: 0.6, stagger: 0.08,
-    ease,
-    scrollTrigger: { trigger: '#skills', start: 'top 85%' }
+  gsap.from('.sk-cat', {
+    scrollTrigger:{trigger:'.skills-grid', start:'top 85%'},
+    y:40, opacity:0, duration:0.7, stagger:0.1, ease
   });
 
   // Experience
-  st('.tl-card', { y: 40, opacity: 0, duration: 0.8 }, '#experience');
+  gsap.from('.exp-card', {scrollTrigger:'.exp-card', y:40, opacity:0, duration:0.9, ease});
 
   // Projects
   gsap.from('.proj-card', {
-    y: 50, opacity: 0, duration: 0.7, stagger: 0.13,
-    ease,
-    scrollTrigger: { trigger: '#projects', start: 'top 85%' }
+    scrollTrigger:{trigger:'.proj-grid', start:'top 85%'},
+    y:50, opacity:0, duration:0.8, stagger:0.2, ease
   });
 
   // Certs
   gsap.from('.cert-card', {
-    y: 30, opacity: 0, duration: 0.6, stagger: 0.1,
-    ease,
-    scrollTrigger: { trigger: '#certifications', start: 'top 88%' }
+    scrollTrigger:{trigger:'.certs-row', start:'top 90%'},
+    y:20, opacity:0, duration:0.6, stagger:0.1, ease
   });
 
   // Contact
-  st('.contact-info',  { x: -40, opacity: 0, duration: 0.8 }, '#contact');
-  st('.contact-form',  { x: 40,  opacity: 0, duration: 0.8 }, '#contact');
-
-  // Arch spokes — orbit animation
-  gsap.to('.arch-spoke', {
-    rotation: 360,
-    duration: 0,
+  gsap.from('.contact-items .citem', {
+    scrollTrigger:{trigger:'.contact-wrap', start:'top 85%'},
+    x:-30, opacity:0, duration:0.6, stagger:0.1, ease
   });
-
-  // Pulse on arch center
-  gsap.to('.arch-center', {
-    boxShadow: '0 0 40px rgba(167,139,250,0.4)',
-    duration: 1.5, repeat: -1, yoyo: true, ease: 'sine.inOut',
-  });
-
-  // Spoke hover glow pulse
-  gsap.to('.arch-spoke', {
-    boxShadow: '0 0 20px rgba(0,255,200,0.4)',
-    duration: 1.8, repeat: -1, yoyo: true, ease: 'sine.inOut', stagger: 0.4,
-  });
+  gsap.from('.contact-form', {scrollTrigger:'.contact-form', x:40, opacity:0, duration:0.9, ease});
 }
 
 /* ─────────────────────────────────────────────
-   7. ACCORDION
-───────────────────────────────────────────── */
+   8. ACCORDION
+   ───────────────────────────────────────────── */
 function initAccordions() {
-  // Open the first EBC2 accordion by default
-  const ebc2 = document.querySelector('.acc-item.open');
-  if (ebc2) {
-    const body = ebc2.querySelector('.acc-body');
-    body.style.maxHeight = body.scrollHeight + 'px';
-    body.style.padding = '1.2rem';
+  // EBC2 is open by default via HTML class .open
+  // Let's set its height
+  const openItem = document.querySelector('.acc-item.open');
+  if(openItem) {
+    const b = openItem.querySelector('.acc-body');
+    b.style.maxHeight = b.scrollHeight + 'px';
   }
 
   document.querySelectorAll('.acc-btn').forEach(btn => {
@@ -319,160 +268,56 @@ function initAccordions() {
       const body = item.querySelector('.acc-body');
       const isOpen = item.classList.contains('open');
 
-      // Close all
-      document.querySelectorAll('.acc-item.open').forEach(openItem => {
-        openItem.classList.remove('open');
-        const b = openItem.querySelector('.acc-body');
-        b.style.maxHeight = '0';
-        b.style.padding = '0 1.2rem';
+      document.querySelectorAll('.acc-item.open').forEach(o => {
+        if(o !== item) {
+          o.classList.remove('open');
+          o.querySelector('.acc-body').style.maxHeight = '0';
+        }
       });
-
-      // Open clicked (if was closed)
-      if (!isOpen) {
+      if(!isOpen) {
         item.classList.add('open');
         body.style.maxHeight = body.scrollHeight + 'px';
-        body.style.padding = '1.2rem';
+      } else {
+        item.classList.remove('open');
+        body.style.maxHeight = '0';
       }
     });
   });
 }
 
 /* ─────────────────────────────────────────────
-   8. STAT COUNTERS — count up on scroll
-───────────────────────────────────────────── */
-function initStatCounters() {
-  const stats = document.querySelectorAll('.stat-n[data-target]');
-  if (!stats.length) return;
-
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const el = entry.target;
-        const target = parseInt(el.dataset.target, 10);
-        const suffix = el.dataset.suffix || '';
-        let current = 0;
-        const step = Math.ceil(target / 40);
-        const timer = setInterval(() => {
-          current = Math.min(current + step, target);
-          el.textContent = current + suffix;
-          if (current >= target) clearInterval(timer);
+   9. STAT COUNTERS
+   ───────────────────────────────────────────── */
+function initCounters() {
+  const q = document.querySelectorAll('.astat-n[data-target]');
+  if(!q.length) return;
+  const obs = new IntersectionObserver(en => {
+    en.forEach(e => {
+      if(e.isIntersecting) {
+        const el = e.target;
+        const tar = +el.dataset.target;
+        let c = 0; const s = Math.ceil(tar/40);
+        const t = setInterval(() => {
+          c = Math.min(c+s, tar);
+          el.textContent = c + (el.dataset.sfx||'+');
+          if(c>=tar) clearInterval(t);
         }, 40);
-        observer.unobserve(el);
+        obs.unobserve(el);
       }
     });
-  }, { threshold: 0.5 });
-
-  stats.forEach(s => observer.observe(s));
+  }, {threshold:0.5});
+  q.forEach(el => obs.observe(el));
 }
 
 /* ─────────────────────────────────────────────
-   9. CONTACT FORM
-───────────────────────────────────────────── */
-function initContactForm() {
-  const form = document.getElementById('contact-form');
-  if (!form) return;
-  form.addEventListener('submit', e => {
-    const btn = form.querySelector('button[type="submit"]');
-    btn.textContent = 'Opening mail client...';
-    setTimeout(() => { btn.innerHTML = 'Send Message <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>'; }, 2000);
-  });
-}
-
-/* ─────────────────────────────────────────────
-   10. SMOOTH CURSOR RING FOLLOW (rAF loop)
-───────────────────────────────────────────── */
-(function smoothRing() {
-  const ring = document.getElementById('cursor-follower');
-  if (!ring) return;
-  let tx = 0, ty = 0, cx = 0, cy = 0;
-
-  document.addEventListener('mousemove', e => { tx = e.clientX; ty = e.clientY; });
-
-  function loop() {
-    cx += (tx - cx) * 0.12;
-    cy += (ty - cy) * 0.12;
-    ring.style.left = cx + 'px';
-    ring.style.top  = cy + 'px';
-    requestAnimationFrame(loop);
-  }
-  loop();
-})();
-
-/* ─────────────────────────────────────────────
-   11. PRELOADER — boot animation
-───────────────────────────────────────────── */
-function initPreloader() {
-  const loader = document.getElementById('preloader');
-  if (!loader) return;
-  // Block scroll during load
-  document.body.style.overflow = 'hidden';
-
-  // After 2s (matches CSS animation) hide it
-  setTimeout(() => {
-    loader.classList.add('hidden');
-    document.body.style.overflow = '';
-    // Fire GSAP hero animations after preloader fades out
-  }, 2000);
-}
-
-/* ─────────────────────────────────────────────
-   12. SCROLL PROGRESS BAR
-───────────────────────────────────────────── */
-function initScrollProgress() {
-  const bar = document.getElementById('scroll-progress');
-  if (!bar) return;
-
-  window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
-    bar.style.width = pct + '%';
-  }, { passive: true });
-}
-
-/* ─────────────────────────────────────────────
-   13. BACK TO TOP BUTTON
-───────────────────────────────────────────── */
+   10. BACK TO TOP
+   ───────────────────────────────────────────── */
 function initBackTop() {
-  // Inject button
-  const btn = document.createElement('button');
-  btn.id = 'back-top';
-  btn.setAttribute('aria-label', 'Back to top');
-  btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5,12 12,5 19,12"/></svg>`;
-  document.body.appendChild(btn);
-
+  const b = document.getElementById('back-top');
+  if(!b) return;
   window.addEventListener('scroll', () => {
-    btn.classList.toggle('visible', window.scrollY > 400);
-  }, { passive: true });
-
-  btn.addEventListener('click', () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
+    if(window.scrollY > 500) b.classList.add('on');
+    else b.classList.remove('on');
+  }, {passive:true});
+  b.addEventListener('click', () => window.scrollTo({top:0, behavior:'smooth'}));
 }
-
-/* ─────────────────────────────────────────────
-   14. 3D CARD TILT EFFECT
-───────────────────────────────────────────── */
-function initCardTilt() {
-  const cards = document.querySelectorAll('.proj-card, .skill-cat');
-
-  cards.forEach(card => {
-    card.addEventListener('mousemove', e => {
-      const rect = card.getBoundingClientRect();
-      const cx = rect.left + rect.width / 2;
-      const cy = rect.top + rect.height / 2;
-      const dx = (e.clientX - cx) / (rect.width / 2);
-      const dy = (e.clientY - cy) / (rect.height / 2);
-      const tiltX = dy * -5;
-      const tiltY = dx * 5;
-      card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(4px)`;
-    });
-
-    card.addEventListener('mouseleave', () => {
-      card.style.transform = '';
-      card.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
-      setTimeout(() => { card.style.transition = ''; }, 500);
-    });
-  });
-}
-
