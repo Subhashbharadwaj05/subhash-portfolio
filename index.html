@@ -11,6 +11,8 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div id="preloader"><div class="pre-inner"><span class="pre-logo">&lt;SB/&gt;</span><div class="pre-bar"><div class="pre-fill"></div></div><span class="pre-text">Initializing...</span></div></div>
+  <div id="scroll-progress"></div>
   <canvas id="bg-canvas"></canvas>
   <div id="cursor"></div>
   <div id="cursor-follower"></div>
@@ -269,15 +271,15 @@
           </div>
           <h3 class="proj-title">EBC2 Security Platform</h3>
           <p class="proj-sub">Evidence-Based Continuous Compliance</p>
-          <p class="proj-desc">Enterprise compliance platform with 5 Rust gRPC microservices, pluggable connector SDK, CRXL domain-specific language with its own compiler, NebulaGraph compliance graph with COCM propagation, bitemporal evidence storage, Ed25519 + PQC cryptographic sealing, and full Kubernetes deployment on RKE2.</p>
+          <p class="proj-desc">Enterprise-grade compliance platform built on a multi-engine <strong>Rust gRPC microservices architecture</strong>. Features a pluggable connector SDK for integrating security tools, a custom domain-specific language with its own compiler, graph-based compliance modeling, bitemporal evidence storage with <strong>Ed25519 + Post-Quantum cryptographic sealing</strong>, and full Kubernetes deployment on RKE2.</p>
           <div class="arch-wrap">
             <p class="arch-label">Architecture</p>
             <div class="arch-nodes">
-              <div class="arch-center">API GW<br><small>:8080</small></div>
-              <div class="arch-spoke top">CORE<br><small>:50051</small></div>
-              <div class="arch-spoke right">SEAL<br><small>:50052</small></div>
-              <div class="arch-spoke bottom-right">ARC<br><small>:50053</small></div>
-              <div class="arch-spoke bottom-left">ACT<br><small>:50054</small></div>
+              <div class="arch-center">Gateway<br><small>API Layer</small></div>
+              <div class="arch-spoke top">Evaluate<br><small>Compliance</small></div>
+              <div class="arch-spoke right">Evidence<br><small>Sealing</small></div>
+              <div class="arch-spoke bottom-right">Connect<br><small>Integrations</small></div>
+              <div class="arch-spoke bottom-left">Remediate<br><small>Workflows</small></div>
             </div>
           </div>
           <div class="proj-tags">

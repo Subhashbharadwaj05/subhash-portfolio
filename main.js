@@ -1,10 +1,14 @@
 /* =============================================================
    SUBHASH BHARADWAJ — PORTFOLIO MAIN.JS
    Particle system · GSAP · Typed.js · Custom cursor · Accordion
+   Preloader · Scroll progress · Card tilt · Back-to-top
    ============================================================= */
 
 /* ─── Wait for DOM ─── */
 document.addEventListener('DOMContentLoaded', () => {
+  initPreloader();
+  initScrollProgress();
+  initBackTop();
   initParticles();
   initCursor();
   initNavbar();
@@ -14,6 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initAccordions();
   initStatCounters();
   initContactForm();
+  initCardTilt();
 });
 
 /* ─────────────────────────────────────────────
@@ -392,3 +397,82 @@ function initContactForm() {
   }
   loop();
 })();
+
+/* ─────────────────────────────────────────────
+   11. PRELOADER — boot animation
+───────────────────────────────────────────── */
+function initPreloader() {
+  const loader = document.getElementById('preloader');
+  if (!loader) return;
+  // Block scroll during load
+  document.body.style.overflow = 'hidden';
+
+  // After 2s (matches CSS animation) hide it
+  setTimeout(() => {
+    loader.classList.add('hidden');
+    document.body.style.overflow = '';
+    // Fire GSAP hero animations after preloader fades out
+  }, 2000);
+}
+
+/* ─────────────────────────────────────────────
+   12. SCROLL PROGRESS BAR
+───────────────────────────────────────────── */
+function initScrollProgress() {
+  const bar = document.getElementById('scroll-progress');
+  if (!bar) return;
+
+  window.addEventListener('scroll', () => {
+    const scrollTop = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    const pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+    bar.style.width = pct + '%';
+  }, { passive: true });
+}
+
+/* ─────────────────────────────────────────────
+   13. BACK TO TOP BUTTON
+───────────────────────────────────────────── */
+function initBackTop() {
+  // Inject button
+  const btn = document.createElement('button');
+  btn.id = 'back-top';
+  btn.setAttribute('aria-label', 'Back to top');
+  btn.innerHTML = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5,12 12,5 19,12"/></svg>`;
+  document.body.appendChild(btn);
+
+  window.addEventListener('scroll', () => {
+    btn.classList.toggle('visible', window.scrollY > 400);
+  }, { passive: true });
+
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+}
+
+/* ─────────────────────────────────────────────
+   14. 3D CARD TILT EFFECT
+───────────────────────────────────────────── */
+function initCardTilt() {
+  const cards = document.querySelectorAll('.proj-card, .skill-cat');
+
+  cards.forEach(card => {
+    card.addEventListener('mousemove', e => {
+      const rect = card.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / (rect.width / 2);
+      const dy = (e.clientY - cy) / (rect.height / 2);
+      const tiltX = dy * -5;
+      const tiltY = dx * 5;
+      card.style.transform = `perspective(800px) rotateX(${tiltX}deg) rotateY(${tiltY}deg) translateZ(4px)`;
+    });
+
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = '';
+      card.style.transition = 'transform 0.5s cubic-bezier(0.16,1,0.3,1)';
+      setTimeout(() => { card.style.transition = ''; }, 500);
+    });
+  });
+}
+
